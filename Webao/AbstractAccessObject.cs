@@ -50,7 +50,7 @@ namespace Webao
             string[] domains = map.path.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             
             object obj = req.Get(path, map.destType);
-
+            
             /*
              * Get object from properties from response
              */

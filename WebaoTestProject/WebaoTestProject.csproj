@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\WebaoDynDummy\WebaoDynDummy.projitems" Label="Shared" Condition="Exists('..\WebaoDynDummy\WebaoDynDummy.projitems')" />
+  <Import Project="..\WebaoDynamic\WebaoDynamic.projitems" Label="Shared" Condition="Exists('..\WebaoDynamic\WebaoDynamic.projitems')" />
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -66,6 +68,7 @@
         <Compile Include="Dto\DtoList.cs" />
         <Compile Include="LastfmMockRequest.cs" />
         <Compile Include="MockRequest.cs" />
+        <Compile Include="WebaoDynamicTest.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\Webao\Webao.csproj">

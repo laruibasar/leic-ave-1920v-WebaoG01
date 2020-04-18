@@ -9,6 +9,7 @@
     <Import_RootNamespace>WebaoDynDummy</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)MyClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebaoCountryDummy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebaoBoredomDummy.cs" />
   </ItemGroup>
 </Project>

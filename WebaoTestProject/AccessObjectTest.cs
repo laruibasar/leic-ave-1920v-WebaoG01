@@ -54,6 +54,14 @@ namespace WebaoTestProject
         }
 
         [Test]
+        public void TestWebaoArtistSearch2()
+        {
+            List<Artist> artists = artistWebao.Search("black", 1);
+            Assert.AreEqual("Black Sabbath", artists[1].Name);
+            Assert.AreEqual("Black Eyed Peas", artists[2].Name);
+        }
+
+        [Test]
         public void TestWebaoArtistSearchMock()
         {
             List<Artist> artists = artistWebaoMock.Search("black");

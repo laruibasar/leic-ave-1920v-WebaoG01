@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webao", "Webao\Webao.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebaoTestProject", "WebaoTestProject\WebaoTestProject.csproj", "{929F21F8-10D8-4A70-B2DD-A8DAF4432727}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebaoDynamic", "WebaoDynamic\WebaoDynamic.shproj", "{98EFDD7F-0C2E-4FFF-829A-E6B30B4327BB}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebaoDynDummy", "WebaoDynDummy\WebaoDynDummy.shproj", "{EA268DF6-76B6-43FF-99E4-8ACE98922AAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,5 +31,13 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F118F28-468A-47EA-ABB7-3EEBBE787684}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$0.StandardHeader = $2
+		$0.VersionControlPolicy = $3
+		version = 2
 	EndGlobalSection
 EndGlobal

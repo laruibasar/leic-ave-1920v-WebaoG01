@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Webao
+namespace WebaoDynamic
 {
     public class WebaoDynBuilder
     {

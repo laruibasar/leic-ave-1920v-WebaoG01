@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)WebaoDynArtist.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebaoDynBuilder.cs" />
   </ItemGroup>
 </Project>

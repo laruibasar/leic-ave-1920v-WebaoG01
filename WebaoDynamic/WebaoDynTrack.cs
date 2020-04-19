@@ -12,6 +12,5 @@ namespace WebaoDynamic
         [Get("?method=geo.gettoptracks&country={country}")]
         [Mapping(typeof(DtoGeoTopTracks), ".Tracks.Track")]
         List<Track> GeoGetTopTracks(string country);
-
     }
 }

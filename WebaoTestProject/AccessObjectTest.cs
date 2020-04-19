@@ -6,7 +6,7 @@ using WebaoTestProject.Dto;
 namespace WebaoTestProject
 {
     [TestFixture]
-    public class AccessObjectTest
+    public class AccessObjectTest 
     {
         static readonly WebaoArtist artistWebao = (WebaoArtist) WebaoBuilder.Build(typeof(WebaoArtist), new HttpRequest());
         static readonly WebaoArtist artistWebaoMock = (WebaoArtist) WebaoBuilder.Build(typeof(WebaoArtist), new LastfmMockRequest());

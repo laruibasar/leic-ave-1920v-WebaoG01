@@ -6,15 +6,16 @@ using Webao;
 using Webao.Attributes;
 using WebaoDynamic;
 using WebaoTestProject.Dto;
+using Webao.Base;
 
 namespace WebaoDynDummy
 {
     //[BaseUrl("http://ws.audioscrobbler.com/2.0/")]
     [AddParameter("format", "json")]
-    //[AddParameter("api_key", LastFmAPI.API_KEY)]
+    [AddParameter("api_key", LastFmAPI.API_KEY)]
     public class WebaoTrackDummy : WebaoDynTrack
     {
-        private readonly IRequest req;
+        private readonly IRequest req; 
         private readonly Dictionary<string, string> requestParameters;
         private readonly char[] separator = new char[] { '.' };
 

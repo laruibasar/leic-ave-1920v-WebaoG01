@@ -90,7 +90,7 @@ namespace WebaoTestProject
         [Test]
         public void TestWebaoBoredom()
         {
-            Boredom boredom = boredomWebao.GetActivity(5881028);
+            Boredom boredom = boredomWebao.GetActivityByKey(5881028);
             Assert.AreEqual("Learn a new programming language", boredom.Activity);
             Assert.AreEqual("education", boredom.Type);
             Assert.AreEqual(1, boredom.Participants);
@@ -99,10 +99,18 @@ namespace WebaoTestProject
         [Test]
         public void TestWebaoBoredomMock()
         {
-            Boredom boredom = boredomWebaoMock.GetActivity(5881028);
+            Boredom boredom = boredomWebaoMock.GetActivityByKey(5881028);
             Assert.AreEqual("Learn a new programming language", boredom.Activity);
             Assert.AreEqual("education", boredom.Type);
             Assert.AreEqual(1, boredom.Participants);
+        }
+
+        [Test]
+        public void TestWebaoBoredomParticipantsMock()
+        {
+            Boredom boredom = boredomWebao.GetActivity(1, 0.6f);
+            Assert.AreEqual("Learn the Chinese erhu", boredom.Activity);
+            Assert.AreEqual("music", boredom.Type);
         }
 
         [Test]

@@ -11,14 +11,13 @@ namespace WebaoTestProject
     {
         public WebaoBoredom(IRequest req) : base(req) { }
 
-        [Get("activity")]
-        [Mapping(typeof(Boredom), ".")]
-        public Boredom GetRandomActivity() => (Boredom)Request();
-
         [Get("activity?key={key}")]
         [Mapping(typeof(Boredom), ".")]
-        public Boredom GetActivity(int key) => (Boredom)Request(key);
+        public Boredom GetActivityByKey(int key) => (Boredom)Request(key);
 
+        [Get("activity?participants={participants}&price={price}")]
+        [Mapping(typeof(Boredom), ".")]
+        public Boredom GetActivity(int participants, float price) => (Boredom)Request(participants, price);
     }
 }
 

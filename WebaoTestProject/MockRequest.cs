@@ -18,6 +18,11 @@ namespace WebaoTestProject
             boredom.Participants = 1;
             mockRequest.Add("activity?key=5881028", boredom);
 
+            Boredom boredom2 = new Boredom();
+            boredom2.Activity = "Learn the Chinese erhu";
+            boredom2.Type = "music";
+            mockRequest.Add("activity?participants=1&price=0.6", boredom2);
+
             DtoCountrySearch dtoCountrySearch = new DtoCountrySearch();
             dtoCountrySearch.Country = new List<Country>();
             Country country0 = new Country();

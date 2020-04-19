@@ -16,7 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Rearrange Request() to allow more than one argument parameter substitution
 
-
 ## [1.0.0] - 2020-04-06
 ### Added
 Submission Work 1

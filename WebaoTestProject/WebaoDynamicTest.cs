@@ -50,11 +50,10 @@ namespace WebaoTestProject
             Assert.AreEqual("music", boredom.Type);
         }
 
-
         [Test]
         public void TestWebaoDynCountry()
 		{
-            List<Country> country = countryWebao.GetNationality("Luis");
+            List<Country> country = countryWebao.GetNationality("luis");
             Assert.AreEqual("PE", country[0].Country_Id);
             Assert.AreEqual(0.06323779f, country[0].Probability);
         }

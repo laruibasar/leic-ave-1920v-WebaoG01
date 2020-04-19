@@ -15,7 +15,6 @@ namespace WebaoDynDummy
     {
         private readonly IRequest req;
         private readonly Dictionary<string, string> requestParameters;
-        private readonly Regex regex = new Regex(@"\{[a-zA-Z0-9]*\}");
         private readonly char[] separator = new char[] { '.' };
 
         public WebaoCountryDummy(IRequest req)
@@ -35,7 +34,7 @@ namespace WebaoDynDummy
 		{
             /* Build query string, with path from custom attributes */
             string path = WebaoOps.GetQuery(typeof(WebaoDynCountry), "GetNationality");
-            path = regex.Replace(path, name);
+            path = path.Replace("{name}", name);
 
             /* Make request */
             MappingAttribute map = WebaoOps.GetMapping(typeof(WebaoDynCountry), "GetNationality");

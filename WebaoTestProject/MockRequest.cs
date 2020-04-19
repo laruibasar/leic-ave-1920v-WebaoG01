@@ -36,6 +36,24 @@ namespace WebaoTestProject
             character.Culture = "Northmen";
             character.Born = "In 283 AC";
             mockRequest.Add("characters/583", character);
+
+            //list with 2 tracks
+            DtoTracks dtoTracks = new DtoTracks();
+            List<Track> tracks = new List<Track>();
+            Track track0 = new Track();
+            track0.Name = "The Less I Know the Better";
+            tracks.Add(track0);
+
+            Track track1 = new Track();
+            track0.Name = "Mr. Brightside";
+            Artist artist1 = new Artist();
+            artist1.Name = "The Killers";
+            track1.Artist = artist1;          
+            tracks.Add(track1);
+            
+            dtoTracks.Track = tracks;
+            mockRequest.Add("?method=geo.gettoptracks&country=australia", dtoTracks);
+
         }
 
         /*

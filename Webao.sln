@@ -12,6 +12,12 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebaoDynDummy", "WebaoDynDummy\WebaoDynDummy.shproj", "{EA268DF6-76B6-43FF-99E4-8ACE98922AAB}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		WebaoDynamic\WebaoDynamic.projitems*{929f21f8-10d8-4a70-b2dd-a8daf4432727}*SharedItemsImports = 4
+		WebaoDynDummy\WebaoDynDummy.projitems*{929f21f8-10d8-4a70-b2dd-a8daf4432727}*SharedItemsImports = 4
+		WebaoDynamic\WebaoDynamic.projitems*{98efdd7f-0c2e-4fff-829a-e6b30b4327bb}*SharedItemsImports = 13
+		WebaoDynDummy\WebaoDynDummy.projitems*{ea268df6-76b6-43ff-99e4-8ace98922aab}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

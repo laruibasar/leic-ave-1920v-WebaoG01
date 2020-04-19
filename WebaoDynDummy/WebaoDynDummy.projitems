@@ -11,5 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)WebaoCountryDummy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoBoredomDummy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebaoTrackDummy.cs" />
   </ItemGroup>
 </Project>

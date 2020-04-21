@@ -11,7 +11,7 @@ namespace WebaoTestProject
     public class WebaoDynamicTest
     {
         static readonly WebaoArtistDummy webaoArtistDummy = new WebaoArtistDummy(new HttpRequest());
-        static readonly WebaoArtistDummy webaoArtistDummyMock = new WebaoArtistDummy(new MockRequest());
+        static readonly WebaoArtistDummy webaoArtistDummyMock = new WebaoArtistDummy(new LastfmMockRequest());
 
         static readonly WebaoBoredomDummy boredomWebao = new WebaoBoredomDummy(new HttpRequest());
         static readonly WebaoBoredomDummy boredomWebaoMock = new WebaoBoredomDummy(new MockRequest());

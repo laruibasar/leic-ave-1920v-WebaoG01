@@ -44,6 +44,8 @@ namespace WebaoTestProject
             artist2.Url = "https://www.last.fm/music/Black+Eyed+Peas";
             dtoSearch.Results.ArtistMatches.Artist.Add(artist2);
             lastFmObjects.Add("?method=artist.search&artist=black", dtoSearch);
+            lastFmObjects.Add("?method=artist.search&artist=black&page=1", dtoSearch);
+
 
             /* Test 3 */
             DtoGeoTopTracks dtoGeoTopTracks = new DtoGeoTopTracks();

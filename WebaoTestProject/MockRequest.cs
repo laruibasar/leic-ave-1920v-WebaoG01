@@ -15,7 +15,7 @@ namespace WebaoTestProject
             Boredom boredom = new Boredom();
             boredom.Activity = "Learn a new programming language";
             boredom.Type = "education";
-            boredom.Participants = 1;
+            boredom.Participants = 1; 
             mockRequest.Add("activity?key=5881028", boredom);
 
             Boredom boredom2 = new Boredom();
@@ -36,6 +36,27 @@ namespace WebaoTestProject
             character.Culture = "Northmen";
             character.Born = "In 283 AC";
             mockRequest.Add("characters/583", character);
+
+            //list with 2 tracks
+            DtoTracks dtoTracks = new DtoTracks();
+            List<Track> tracks = new List<Track>();
+            Track track0 = new Track();
+            track0.Name = "The Less I Know the Better";
+            tracks.Add(track0);
+
+            Track track1 = new Track();
+            track1.Name = "Mr. Brightside";
+            Artist artist10 = new Artist();
+            artist10.Name = "The Killers";
+            track1.Artist = artist10;
+            tracks.Add(track1);
+            DtoGeoTopTracks dtoGeoTopTracks = new DtoGeoTopTracks();
+            dtoTracks.Track = tracks;
+            dtoGeoTopTracks.Tracks = dtoTracks;
+
+            dtoTracks.Track = tracks;
+            mockRequest.Add("?method=geo.gettoptracks&country=australia", dtoGeoTopTracks);
+
         }
 
         /*

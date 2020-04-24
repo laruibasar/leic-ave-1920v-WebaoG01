@@ -6,6 +6,7 @@ using WebaoTestProject.Dto;
 namespace WebaoDynamic
 {
     [BaseUrl("https://anapioficeandfire.com/api/")]
+    [AddParameter("format", "json")]
     public interface WebaoDynCharacter
     {
         [Get("characters/{id}")]

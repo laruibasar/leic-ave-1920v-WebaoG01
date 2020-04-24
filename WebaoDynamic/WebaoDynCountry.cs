@@ -5,7 +5,7 @@ using WebaoTestProject.Dto;
 namespace WebaoDynamic
 {
     [BaseUrl("https://api.nationalize.io")]
-    //[AddParameter("format", "json")]
+    [AddParameter("format", "json")]
     public interface WebaoDynCountry
     {
         [Get("?name={name}")]

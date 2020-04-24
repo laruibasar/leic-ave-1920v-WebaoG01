@@ -39,10 +39,19 @@ namespace WebaoDynamic
             return get.path;
         }
 
-        public static MappingAttribute GetMapping(Type type, string method)
+        public static string GetMappingDomain(Type type, string method)
         {
             MethodInfo methodInfo = type.GetMethod(method);
-            return (MappingAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(MappingAttribute));
+            MappingAttribute map = (MappingAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(MappingAttribute));
+            return map.path;
         }
+
+        public static Type GetMappingType(Type type, string method)
+        {
+            MethodInfo methodInfo = type.GetMethod(method);
+            MappingAttribute map = (MappingAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(MappingAttribute));
+            return map.destType;
+        }
+
     }
 }

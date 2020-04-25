@@ -10,6 +10,17 @@ namespace WebaoDynamic
         public static void MethodEmitter(MethodBuilder metBuilder, TypeInfo typeInfo)
         {
             WebaoDyn webao = (WebaoDyn)Activator.CreateInstance(typeof(WebaoDyn));
+
+
+            Type type = typeInfo.AsType();
+
+            ILGenerator il = metBuilder.GetILGenerator();
+            // Represents a local variable within a method or constructor.
+            LocalBuilder tobj = il.DeclareLocal(type);
+
+            il.Emit(OpCodes.Ldarg_1);
+
+            ///.....
         }
 
         public static void ConstructorEmitter(ConstructorBuilder constBuilder, TypeInfo typeInfo)
@@ -37,12 +48,29 @@ namespace WebaoDynamic
             */
             il.Emit(OpCodes.Ldarg_0);
             il.Emit(OpCodes.Ldarg_1);
+//=========================================================>>>>>
+//X            il.Emit(OpCodes.Call,
+//X                typeof(IRequest).GetTypeInfo().GetMethod(
+//X                "Write",
+//X                new Type[] { typeof(string) }
+//X            ));
+//=========================================================>>>>>
+            il.Emit(OpCodes.Ldarg_0);
+            il.Emit(OpCodes.Ldstr, "https://www.boredapi.com/api/");
             il.Emit(OpCodes.Call,
-                typeof(IRequest).GetTypeInfo().GetMethod(
-                "Write",
-                new Type[] { typeof(string) }
-            )
-                );
+               typeof(WebaoDyn).GetTypeInfo().GetMethod(
+               "SetUrl",
+               new Type[] { typeof(string) }
+           ));
+            il.Emit(OpCodes.Ldarg_0);
+            il.Emit(OpCodes.Ldstr, "format");
+            il.Emit(OpCodes.Ldstr, "json");
+            il.Emit(OpCodes.Call,
+              typeof(WebaoDyn).GetTypeInfo().GetMethod(
+              "SetParameter",
+              new Type[] { typeof(string), typeof(string) }
+          )); 
+
 
             throw new NotImplementedException();
         }

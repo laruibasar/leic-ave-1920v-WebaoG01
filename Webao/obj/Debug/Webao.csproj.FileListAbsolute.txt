@@ -28,3 +28,12 @@
 /Users/gordett/ISEL/AVE/1920v-LI41N-G01/Webao/obj/Debug/Webao.csproj.CopyComplete
 /Users/gordett/ISEL/AVE/1920v-LI41N-G01/Webao/obj/Debug/Webao.dll
 /Users/gordett/ISEL/AVE/1920v-LI41N-G01/Webao/obj/Debug/Webao.pdb
+/Users/luisgordete/ISEL/AVE/1920v-LI41N-G01/Webao/bin/Debug/Webao.dll.config
+/Users/luisgordete/ISEL/AVE/1920v-LI41N-G01/Webao/bin/Debug/Webao.dll
+/Users/luisgordete/ISEL/AVE/1920v-LI41N-G01/Webao/bin/Debug/Webao.pdb
+/Users/luisgordete/ISEL/AVE/1920v-LI41N-G01/Webao/bin/Debug/Newtonsoft.Json.dll
+/Users/luisgordete/ISEL/AVE/1920v-LI41N-G01/Webao/bin/Debug/Newtonsoft.Json.xml
+/Users/luisgordete/ISEL/AVE/1920v-LI41N-G01/Webao/obj/Debug/Webao.csprojAssemblyReference.cache
+/Users/luisgordete/ISEL/AVE/1920v-LI41N-G01/Webao/obj/Debug/Webao.csproj.CopyComplete
+/Users/luisgordete/ISEL/AVE/1920v-LI41N-G01/Webao/obj/Debug/Webao.dll
+/Users/luisgordete/ISEL/AVE/1920v-LI41N-G01/Webao/obj/Debug/Webao.pdb

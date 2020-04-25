@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Webao.Attributes;
+using Webao.Base;
 
 namespace WebaoDynamic
 {
@@ -15,20 +16,21 @@ namespace WebaoDynamic
 
         public static string GetUrl(Type type)
 		{
-            BaseUrlAttribute url = (BaseUrlAttribute)Attribute.GetCustomAttribute(type, typeof(BaseUrlAttribute));
+            TypeInformation typeInfo = TypeInfoCache.Get(type);
+            BaseUrlAttribute url = (BaseUrlAttribute)typeInfo[typeof(BaseUrlAttribute).FullName][0];
             return url.host;
 		}
 
         public static Dictionary<string, string> GetParameters(Type type)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            AddParameterAttribute[] parametersAttributes = (AddParameterAttribute[])Attribute
-                    .GetCustomAttributes(type, typeof(AddParameterAttribute));
+            TypeInformation typeInfo = TypeInfoCache.Get(type);
+
+            List<Attribute> parametersAttributes = typeInfo[typeof(AddParameterAttribute).FullName];
             foreach (AddParameterAttribute p in parametersAttributes)
             {
                 parameters.Add(p.name, p.val);
             }
-
             return parameters;
         }
 

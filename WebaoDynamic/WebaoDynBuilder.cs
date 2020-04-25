@@ -44,12 +44,12 @@ namespace WebaoDynamic
                 );
             WebaoEmitter.ConstructorEmitter(constBuilder, typeInfo);
 
-            List<string> methods = WebaoOps.GetMethods(type);
-            foreach (string method in methods)
+            MethodInfo[] methods = WebaoOps.GetMethods(type);
+            foreach (MethodInfo method in methods)
             {
                 MethodBuilder methodBuilder =
                     typBuilder.DefineMethod(
-                        method,
+                        method.Name,
                         MethodAttributes.Public |
                         MethodAttributes.Virtual |
                         MethodAttributes.NewSlot

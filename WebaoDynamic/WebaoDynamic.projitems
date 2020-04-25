@@ -17,5 +17,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)WebaoDynBoredom.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoDynCharacter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoDyn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebaoEmitter.cs" />
   </ItemGroup>
 </Project>

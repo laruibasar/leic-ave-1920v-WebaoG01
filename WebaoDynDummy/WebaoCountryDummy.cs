@@ -10,8 +10,8 @@ namespace WebaoDynDummy
     {
         public WebaoCountryDummy(IRequest req) : base(req)
 		{
-            req.BaseUrl("https://api.nationalize.io");
-            req.AddParameter("format", "json");
+            base.SetUrl("https://api.nationalize.io");
+            base.SetParameter("format", "json");
         }
 
         public List<Country> GetNationality(string name)
@@ -20,7 +20,7 @@ namespace WebaoDynDummy
             path = path.Replace("{name}", name.ToString());
 
             Type type = typeof(DtoCountrySearch);
-            DtoCountrySearch dto = (DtoCountrySearch)req.Get(path, type);
+            DtoCountrySearch dto = (DtoCountrySearch)base.GetRequest(path, type);
 
             return dto.Country;
 		}

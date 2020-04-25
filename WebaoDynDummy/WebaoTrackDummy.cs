@@ -1,25 +1,18 @@
 ﻿using System;
-using System.Reflection;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Webao;
-using Webao.Attributes;
 using WebaoDynamic;
 using WebaoTestProject.Dto;
-using Webao.Base;
 
 namespace WebaoDynDummy
 {
-    public class WebaoTrackDummy : WebaoDynTrack
+    public class WebaoTrackDummy : WebaoDyn, WebaoDynTrack
     {
-        private readonly IRequest req; 
-
-        public WebaoTrackDummy(IRequest req)
+        public WebaoTrackDummy(IRequest req) : base(req)
         {
-            this.req = req;
-            req.BaseUrl("http://ws.audioscrobbler.com/2.0/");
-            req.AddParameter("format", "json");
-            req.AddParameter("api_key", "a6c9a2229d0a79160dd93641841b0676");
+            base.SetUrl("http://ws.audioscrobbler.com/2.0/");
+            base.SetParameter("format", "json");
+            base.SetParameter("api_key", "a6c9a2229d0a79160dd93641841b0676");
         }
 
         public List<Track> GeoGetTopTracks(string country)
@@ -28,7 +21,7 @@ namespace WebaoDynDummy
             path = path.Replace("{country}", country);
 
             Type type = typeof(DtoGeoTopTracks);
-            DtoGeoTopTracks dto = (DtoGeoTopTracks)req.Get(path, type);
+            DtoGeoTopTracks dto = (DtoGeoTopTracks)base.GetRequest(path, type);
 
             return dto.Tracks.Track;
         }

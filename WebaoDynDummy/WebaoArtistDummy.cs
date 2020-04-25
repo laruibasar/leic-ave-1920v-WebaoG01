@@ -6,15 +6,13 @@ using WebaoTestProject.Dto;
 
 namespace WebaoDynDummy  
 {
-    public class WebaoArtistDummy : WebaoDynArtist
+    public class WebaoArtistDummy : WebaoDyn, WebaoDynArtist
     {
-        private readonly IRequest req;
-        public WebaoArtistDummy(IRequest req)
+        public WebaoArtistDummy(IRequest req) : base(req)
         {
-            this.req = req;
-            req.BaseUrl("http://ws.audioscrobbler.com/2.0/");
-            req.AddParameter("format", "json");
-            req.AddParameter("api_key", "a6c9a2229d0a79160dd93641841b0676");
+            base.SetUrl("http://ws.audioscrobbler.com/2.0/");
+            base.SetParameter("format", "json");
+            base.SetParameter("api_key", "a6c9a2229d0a79160dd93641841b0676");
         }
 
         public Artist GetInfo(string name)
@@ -22,8 +20,7 @@ namespace WebaoDynDummy
             string path = "?method=artist.getinfo&artist={name}";
             path = path.Replace("{name}", name.ToString());
 
-            Type type = typeof(DtoArtist);
-            DtoArtist dto = (DtoArtist)req.Get(path, type);
+            DtoArtist dto = (DtoArtist)base.GetRequest(path, typeof(DtoArtist));
 
             return dto.Artist;
         } 
@@ -35,7 +32,7 @@ namespace WebaoDynDummy
             path = path.Replace("{page}", page.ToString());
 
             Type type = typeof(DtoSearch);
-            DtoSearch dto = (DtoSearch)req.Get(path, type);
+            DtoSearch dto = (DtoSearch)base.GetRequest(path, type);
 
             return dto.Results.ArtistMatches.Artist;
         }

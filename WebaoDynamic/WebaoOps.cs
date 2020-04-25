@@ -53,5 +53,9 @@ namespace WebaoDynamic
             return map.destType;
         }
 
+        public static MethodInfo[] GetMethods(Type type)
+        {
+            return type.GetMethods();
+        }
     }
 }

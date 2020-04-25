@@ -1,24 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Webao;
-using Webao.Attributes;
-using Webao.Base;
 using WebaoDynamic;
 using WebaoTestProject.Dto;
 
 namespace WebaoDynDummy
 {
     
-    public class WebaoCharacterDummy : WebaoDynCharacter
+    public class WebaoCharacterDummy : WebaoDyn, WebaoDynCharacter
     {
-        private readonly IRequest req;
-
-        public WebaoCharacterDummy(IRequest req)
+        public WebaoCharacterDummy(IRequest req) : base(req)
         {
-            this.req = req;
-            req.BaseUrl("https://anapioficeandfire.com/api/");
-            req.AddParameter("format", "json");
+            base.SetUrl("https://anapioficeandfire.com/api/");
+            base.SetParameter("format", "json");
         }
 
         public Character GetCharacter(int id)
@@ -27,7 +21,7 @@ namespace WebaoDynDummy
             path = path.Replace("{id}", id.ToString());
 
             Type type = typeof(Character);
-            Character character = (Character)req.Get(path, type);
+            Character character = (Character)base.GetRequest(path, type);
 
             return character;
         }
@@ -37,7 +31,7 @@ namespace WebaoDynDummy
             string path = "characters";
 
             Type type = typeof(DtoList);
-            DtoList dto = (DtoList)req.Get(path, type);
+            DtoList dto = (DtoList)base.GetRequest(path, type);
 
             return dto.Results.CharacterMatches.Character;
         }

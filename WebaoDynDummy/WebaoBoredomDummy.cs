@@ -1,18 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using Webao;
 using WebaoDynamic;
 using WebaoTestProject.Dto;
 
 namespace WebaoDynDummy
 {
-    public class WebaoBoredomDummy : WebaoDynBoredom
+    public class WebaoBoredomDummy : WebaoDyn, WebaoDynBoredom
     {
-        private readonly IRequest req;
-        public WebaoBoredomDummy(IRequest req)
+        public WebaoBoredomDummy(IRequest req) : base(req)
         {
-            this.req = req;
-            req.BaseUrl("https://www.boredapi.com/api/");
-            req.AddParameter("format", "json");
+            base.SetUrl("https://www.boredapi.com/api/");
+            base.SetParameter("format", "json");
         }
 
         public Boredom GetActivityByKey(int key)
@@ -20,8 +19,7 @@ namespace WebaoDynDummy
             string path = "activity?key={key}";
             path = path.Replace("{key}", key.ToString());
 
-            Type type = typeof(Boredom);
-            Boredom boredom = (Boredom)req.Get(path, type);
+            Boredom boredom = (Boredom)base.GetRequest(path, typeof(Boredom));
 
             return boredom;
         }
@@ -33,7 +31,7 @@ namespace WebaoDynDummy
             path = path.Replace("{price}", price.ToString());
 
             Type type = typeof(Boredom);
-            Boredom boredom = (Boredom)req.Get(path, type);
+            Boredom boredom = (Boredom)base.GetRequest(path, type);
 
             return boredom;
         }

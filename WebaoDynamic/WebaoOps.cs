@@ -36,22 +36,28 @@ namespace WebaoDynamic
 
         public static string GetQuery(Type type, string method)
         {
-            MethodInfo methodInfo = type.GetMethod(method);
-            GetAttribute get = (GetAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(GetAttribute));
+            //MethodInfo methodInfo = type.GetMethod(method);
+            TypeInformation typeInfo = TypeInfoCache.Get(type);
+            GetAttribute get = (GetAttribute)typeInfo[method + typeof(GetAttribute).FullName][0];
+            //GetAttribute get = (GetAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(GetAttribute));
             return get.path;
         }
 
         public static string GetMappingDomain(Type type, string method)
         {
-            MethodInfo methodInfo = type.GetMethod(method);
-            MappingAttribute map = (MappingAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(MappingAttribute));
+            //MethodInfo methodInfo = type.GetMethod(method);
+            TypeInformation typeInfo = TypeInfoCache.Get(type);
+            MappingAttribute map = (MappingAttribute)typeInfo[method + typeof(MappingAttribute).FullName][0];
+            //MappingAttribute map = (MappingAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(MappingAttribute));
             return map.path;
         }
 
         public static Type GetMappingType(Type type, string method)
         {
-            MethodInfo methodInfo = type.GetMethod(method);
-            MappingAttribute map = (MappingAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(MappingAttribute));
+            //MethodInfo methodInfo = type.GetMethod(method);
+            TypeInformation typeInfo = TypeInfoCache.Get(type);
+            MappingAttribute map = (MappingAttribute)typeInfo[method + typeof(MappingAttribute).FullName][0];
+            //MappingAttribute map = (MappingAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(MappingAttribute));
             return map.destType;
         }
 

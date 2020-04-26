@@ -43,23 +43,30 @@ namespace WebaoDynamic
                     new Type[] { typeof(IRequest) }
                 );
             WebaoEmitter.ConstructorEmitter(constBuilder, typeInfo);
-            /*
+            
             MethodInfo[] methods = WebaoOps.GetMethods(type);
             foreach (MethodInfo method in methods)
             {
+                ParameterInfo[] parametersInfo = method.GetParameters();
+                Type[] methodParameters = new Type[parametersInfo.Length];
+                int idx = 0;
+                foreach (ParameterInfo parameterInfo in parametersInfo)
+                {
+                    methodParameters[idx++] = parameterInfo.ParameterType;
+                }
+
                 MethodBuilder methodBuilder =
                     typBuilder.DefineMethod(
                         method.Name,
                         MethodAttributes.Public |
                         MethodAttributes.Virtual |
-                        MethodAttributes.NewSlot
-                        // method return,
-                        // method parameters new Type[] { typeof()....}
+                        MethodAttributes.NewSlot,
+                        method.ReturnType,
+                        methodParameters
                         );
 
-                WebaoEmitter.MethodEmitter(methodBuilder, typeInfo);
+                WebaoEmitter.MethodEmitter(methodBuilder, typeInfo, parametersInfo);
             }
-            */
             Type webaoType = typBuilder.CreateTypeInfo().AsType();
 
             asmBuilder.Save(DLL_NAME);

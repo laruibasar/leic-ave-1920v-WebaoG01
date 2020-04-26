@@ -8,16 +8,81 @@ namespace WebaoDynamic
 {
     public class WebaoEmitter
     {
-        public static void MethodEmitter(MethodBuilder metBuilder, TypeInfo typeInfo)
+        public static void MethodEmitter(
+            MethodBuilder metBuilder,
+            TypeInfo typeInfo,
+            ParameterInfo[] parameterInfos)
         {
             ILGenerator il = metBuilder.GetILGenerator();
+
+            /* Local variables
+             *  - string path
+             *  - Type (regarding return)
+             */
+            LocalBuilder lbPath = il.DeclareLocal(typeof(string));
+            lbPath.SetLocalSymInfo("path");
+            LocalBuilder lbReturnObj = il.DeclareLocal(typeof(Type));
+            lbPath.SetLocalSymInfo("type");
 
             /* We call methods:
              *  - base.GetRequest
              *  - String.Replace
-             *  - (sometimes) xx ToString()
              *  - Type.GetTypeFromHandle(System.RuntimeTypeHandle) (typeof())
              */
+            MethodInfo baseGetRequest = typeof(WebaoDyn).GetMethod(
+                "GetRequest",
+                new Type[] { typeof(string), typeof(Type) });
+            MethodInfo callStringRpl = typeof(String).GetMethod(
+                "Replace",
+                new Type[] { typeof(string), typeof(string) });
+            MethodInfo callTypeOf = typeof(Type).GetMethod(
+                "GetTypeFromHandle",
+                new Type[] { typeof(RuntimeTypeHandle) });
+            /*
+            .locals init (string V_0)
+            IL_0000:  ldstr      "activity\?key={key}"
+            IL_0005:  stloc.0
+            IL_0006:  ldloc.0
+            IL_0007:  ldstr      "{key}"
+            IL_000c:  ldarga.s   key
+            IL_000e:  call       instance string [mscorlib]System.Int32::ToString()
+            IL_0013:  callvirt   instance string [mscorlib]System.String::Replace(string,
+                                                                                  string)
+            IL_0018:  stloc.0
+            IL_0019:  ldarg.0
+            IL_001a:  ldloc.0
+            IL_001b:  ldtoken    WebaoTestProject.Dto.Boredom
+            IL_0020:  call       [mscorlib]System.Type [mscorlib]System.Type::GetTypeFromHandle([mscorlib]System.RuntimeTypeHandle)
+            IL_0025:  call       instance object WebaoDynamic.WebaoDyn::GetRequest(string,
+                                                                                   [mscorlib]System.Type)
+            IL_002a:  castclass  WebaoTestProject.Dto.Boredom
+            IL_002f:  ret
+             */
+
+            il.Emit(OpCodes.Ldstr, WebaoOps.GetQuery(typeInfo, metBuilder.Name));
+
+            //replace args if exists
+            if (parameterInfos.Length > 0)
+            {
+                foreach (ParameterInfo pi in parameterInfos)
+                {
+                    il.Emit(OpCodes.Stloc_0);
+                    il.Emit(OpCodes.Ldloc_0);
+                    il.Emit(OpCodes.Ldstr, "{" + pi.Name + "}");
+                    il.Emit(OpCodes.Ldarga_S, pi.Position);
+                    il.Emit(OpCodes.Call, pi.ParameterType.GetMethod("ToString", new Type[0]));
+                    il.EmitCall(OpCodes.Callvirt, callStringRpl, null);
+                }
+            }
+            il.Emit(OpCodes.Stloc_0);
+            il.Emit(OpCodes.Ldtoken, WebaoOps.GetMappingType(typeInfo, metBuilder.Name));
+            il.EmitCall(OpCodes.Call, callTypeOf, null);
+            il.EmitCall(OpCodes.Call, baseGetRequest, null);
+
+            string domain = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name);
+            //il.Emit(OpCodes.Castclass, );
+
+            il.Emit(OpCodes.Ret);
         }
 
         public static void ConstructorEmitter(ConstructorBuilder constBuilder, TypeInfo typeInfo)

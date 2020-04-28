@@ -11,8 +11,8 @@ namespace WebaoTestProject
     [TestFixture]
     public class WebaoDynamicTest
     {
-        static readonly WebaoArtistDummy webaoArtistDummy = new WebaoArtistDummy(new HttpRequest());
-        static readonly WebaoArtistDummy webaoArtistDummyMock = new WebaoArtistDummy(new LastfmMockRequest());
+        static readonly IWebaoArtist webaoArtist = (IWebaoArtist)WebaoDynBuilder.Build(typeof(IWebaoArtist), new HttpRequest());
+        static readonly IWebaoArtist webaoArtistMock = (IWebaoArtist)WebaoDynBuilder.Build(typeof(IWebaoArtist), new LastfmMockRequest());
 
         static readonly IWebaoBoredom boredomWebao = (IWebaoBoredom)WebaoDynBuilder.Build(typeof(IWebaoBoredom), new HttpRequest());
         static readonly IWebaoBoredom boredomWebaoMock = (IWebaoBoredom)WebaoDynBuilder.Build(typeof(IWebaoBoredom), new MockRequest());
@@ -30,7 +30,7 @@ namespace WebaoTestProject
         [Test]
         public void TestWebaoArtist()
         {
-            Artist artist = webaoArtistDummy.GetInfo("muse");
+            Artist artist = webaoArtist.GetInfo("muse");
             Assert.AreEqual("Muse", artist.Name);
             Assert.AreEqual("fd857293-5ab8-40de-b29e-55a69d4e4d0f", artist.Mbid);
             Assert.AreEqual("https://www.last.fm/music/Muse", artist.Url);
@@ -41,7 +41,7 @@ namespace WebaoTestProject
         [Test]
         public void TestWebaoArtistMock()
         {
-            Artist artist = webaoArtistDummyMock.GetInfo("muse");
+            Artist artist = webaoArtistMock.GetInfo("muse");
             Assert.AreEqual("Muse", artist.Name);
             Assert.AreEqual("fd857293-5ab8-40de-b29e-55a69d4e4d0f", artist.Mbid);
             Assert.AreEqual("https://www.last.fm/music/Muse", artist.Url);
@@ -52,7 +52,7 @@ namespace WebaoTestProject
         [Test] 
         public void TestWebaoArtistSearch()
         {
-            List<Artist> artists = webaoArtistDummy.Search("black", 1);
+            List<Artist> artists = webaoArtist.Search("black", 1);
             Assert.AreEqual("Black Sabbath", artists[1].Name);
             Assert.AreEqual("Black Eyed Peas", artists[2].Name);
         }
@@ -60,7 +60,7 @@ namespace WebaoTestProject
         [Test]
         public void TestWebaoArtistSearchMock()
         {
-            List<Artist> artists = webaoArtistDummyMock.Search("black", 1);
+            List<Artist> artists = webaoArtistMock.Search("black", 1);
             Assert.AreEqual("Black Sabbath", artists[1].Name);
             Assert.AreEqual("Black Eyed Peas", artists[2].Name);
         }

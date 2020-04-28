@@ -9,7 +9,7 @@
     <Import_RootNamespace>WebaoDynamic</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)WebaoDynArtist.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IWebaoArtist.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoDynBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IWebaoCountry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoDynTrack.cs" />
@@ -18,6 +18,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)IWebaoCharacter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoDyn.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoEmitter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Dumm.cs" />
   </ItemGroup>
 </Project>

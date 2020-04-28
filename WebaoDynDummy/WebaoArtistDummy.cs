@@ -6,7 +6,7 @@ using WebaoTestProject.Dto;
 
 namespace WebaoDynDummy  
 {
-    public class WebaoArtistDummy : WebaoDyn, WebaoDynArtist
+    public class WebaoArtistDummy : WebaoDyn, IWebaoArtist
     {
         public WebaoArtistDummy(IRequest req) : base(req)
         {

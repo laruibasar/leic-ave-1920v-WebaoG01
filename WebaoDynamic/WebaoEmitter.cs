@@ -38,30 +38,9 @@ namespace WebaoDynamic
             MethodInfo callTypeOf = typeof(Type).GetMethod(
                 "GetTypeFromHandle",
                 new Type[] { typeof(RuntimeTypeHandle) });
-            /*
-            .locals init (string V_0)
-            IL_0000:  ldstr      "activity\?key={key}"
-            IL_0005:  stloc.0
-            IL_0006:  ldloc.0
-            IL_0007:  ldstr      "{key}"
-            IL_000c:  ldarga.s   key
-            IL_000e:  call       instance string [mscorlib]System.Int32::ToString()
-            IL_0013:  callvirt   instance string [mscorlib]System.String::Replace(string,
-                                                                                  string)
-            IL_0018:  stloc.0
-            IL_0019:  ldarg.0
-            IL_001a:  ldloc.0
-            IL_001b:  ldtoken    WebaoTestProject.Dto.Boredom
-            IL_0020:  call       [mscorlib]System.Type [mscorlib]System.Type::GetTypeFromHandle([mscorlib]System.RuntimeTypeHandle)
-            IL_0025:  call       instance object WebaoDynamic.WebaoDyn::GetRequest(string,
-                                                                                   [mscorlib]System.Type)
-            IL_002a:  castclass  WebaoTestProject.Dto.Boredom
-            IL_002f:  ret
-             */
 
             il.Emit(OpCodes.Ldstr, WebaoOps.GetQuery(typeInfo, metBuilder.Name));
 
-            //replace args if exists
             if (parameterInfos.Length > 0)
             {
                 foreach (ParameterInfo pi in parameterInfos)
@@ -69,12 +48,21 @@ namespace WebaoDynamic
                     il.Emit(OpCodes.Stloc_0);
                     il.Emit(OpCodes.Ldloc_0);
                     il.Emit(OpCodes.Ldstr, "{" + pi.Name + "}");
-                    il.Emit(OpCodes.Ldarga_S, pi.Position);
-                    il.Emit(OpCodes.Call, pi.ParameterType.GetMethod("ToString", new Type[0]));
+                    il.Emit(OpCodes.Ldarga_S, pi.Position + 1); /* 0 -> this */
+                    if (pi.ParameterType == typeof(string))
+                    {
+                        il.Emit(OpCodes.Callvirt, pi.ParameterType.GetMethod("ToString", new Type[0]));
+                    }
+                    else
+                    {
+                        il.Emit(OpCodes.Call, pi.ParameterType.GetMethod("ToString", new Type[0]));
+                    }
                     il.EmitCall(OpCodes.Callvirt, callStringRpl, null);
                 }
             }
             il.Emit(OpCodes.Stloc_0);
+            il.Emit(OpCodes.Ldarg_0);
+            il.Emit(OpCodes.Ldloc_0);
             il.Emit(OpCodes.Ldtoken, WebaoOps.GetMappingType(typeInfo, metBuilder.Name));
             il.EmitCall(OpCodes.Call, callTypeOf, null);
             il.EmitCall(OpCodes.Call, baseGetRequest, null);
@@ -115,19 +103,6 @@ namespace WebaoDynamic
                 "SetParameter",
                 new Type[] { typeof(string), typeof(string) });
 
-            /* example from WebaoBoredomDummy
-                IL_0000: ldarg.0
-                IL_0001: ldarg.1
-                IL_0002: call instance void WebaoDynamic.WebaoDyn::.ctor([Webao]Webao.IRequest)
-                IL_0007: ldarg.0
-                IL_0008: ldstr      "https://www.boredapi.com/api/"
-                IL_000d: call instance void WebaoDynamic.WebaoDyn::SetUrl(string)
-                IL_0012: ldarg.0
-                IL_0013: ldstr      "format"
-                IL_0018: ldstr      "json"
-                IL_001d: call instance void WebaoDynamic.WebaoDyn::SetParameter(string,
-                                                                                string)
-            */
             il.Emit(OpCodes.Ldarg_0);
             il.Emit(OpCodes.Ldarg_1);
             il.Emit(OpCodes.Call, baseCtor);

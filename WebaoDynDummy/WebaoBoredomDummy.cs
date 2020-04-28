@@ -6,7 +6,7 @@ using WebaoTestProject.Dto;
 
 namespace WebaoDynDummy
 {
-    public class WebaoBoredomDummy : WebaoDyn, WebaoDynBoredom
+    public class WebaoBoredomDummy : WebaoDyn, IWebaoBoredom
     {
         public WebaoBoredomDummy(IRequest req) : base(req)
         {
@@ -30,8 +30,7 @@ namespace WebaoDynDummy
             path = path.Replace("{participants}", participants.ToString());
             path = path.Replace("{price}", price.ToString());
 
-            Type type = typeof(Boredom);
-            Boredom boredom = (Boredom)base.GetRequest(path, type);
+            Boredom boredom = (Boredom)base.GetRequest(path, typeof(Boredom));
 
             return boredom;
         }

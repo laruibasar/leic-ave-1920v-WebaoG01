@@ -7,7 +7,7 @@ using WebaoTestProject.Dto;
 namespace WebaoDynDummy
 {
     
-    public class WebaoCharacterDummy : WebaoDyn, WebaoDynCharacter
+    public class WebaoCharacterDummy : WebaoDyn, IWebaoCharacter
     {
         public WebaoCharacterDummy(IRequest req) : base(req)
         {
@@ -20,8 +20,7 @@ namespace WebaoDynDummy
             string path = "characters/{id}";
             path = path.Replace("{id}", id.ToString());
 
-            Type type = typeof(Character);
-            Character character = (Character)base.GetRequest(path, type);
+            Character character = (Character)base.GetRequest(path, typeof(Character));
 
             return character;
         }
@@ -30,8 +29,7 @@ namespace WebaoDynDummy
         {
             string path = "characters";
 
-            Type type = typeof(DtoList);
-            DtoList dto = (DtoList)base.GetRequest(path, type);
+            DtoList dto = (DtoList)base.GetRequest(path, typeof(DtoList));
 
             return dto.Results.CharacterMatches.Character;
         }

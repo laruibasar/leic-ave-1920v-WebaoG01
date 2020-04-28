@@ -6,7 +6,7 @@ using WebaoTestProject.Dto;
 
 namespace WebaoDynDummy
 {
-    public class WebaoCountryDummy : WebaoDyn, WebaoDynCountry
+    public class WebaoCountryDummy : WebaoDyn, IWebaoCountry
     {
         public WebaoCountryDummy(IRequest req) : base(req)
 		{
@@ -19,8 +19,7 @@ namespace WebaoDynDummy
             string path = "?name={name}";
             path = path.Replace("{name}", name.ToString());
 
-            Type type = typeof(DtoCountrySearch);
-            DtoCountrySearch dto = (DtoCountrySearch)base.GetRequest(path, type);
+            DtoCountrySearch dto = (DtoCountrySearch)base.GetRequest(path, typeof(DtoCountrySearch));
 
             return dto.Country;
 		}

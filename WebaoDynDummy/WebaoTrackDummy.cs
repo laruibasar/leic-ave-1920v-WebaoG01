@@ -20,8 +20,7 @@ namespace WebaoDynDummy
             string path = "?method=geo.gettoptracks&country={country}";
             path = path.Replace("{country}", country);
 
-            Type type = typeof(DtoGeoTopTracks);
-            DtoGeoTopTracks dto = (DtoGeoTopTracks)base.GetRequest(path, type);
+            DtoGeoTopTracks dto = (DtoGeoTopTracks)base.GetRequest(path, typeof(DtoGeoTopTracks));
 
             return dto.Tracks.Track;
         }

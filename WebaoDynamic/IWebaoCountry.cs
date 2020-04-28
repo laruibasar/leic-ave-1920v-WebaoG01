@@ -6,7 +6,7 @@ namespace WebaoDynamic
 {
     [BaseUrl("https://api.nationalize.io")]
     [AddParameter("format", "json")]
-    public interface WebaoDynCountry
+    public interface IWebaoCountry
     {
         [Get("?name={name}")]
         [Mapping(typeof(DtoCountrySearch), ".Country")]

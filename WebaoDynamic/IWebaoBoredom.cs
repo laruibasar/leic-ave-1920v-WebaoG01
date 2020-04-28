@@ -5,7 +5,7 @@ namespace WebaoDynamic
 {
     [BaseUrl("https://www.boredapi.com/api/")]
     [AddParameter("format", "json")]
-    public interface WebaoDynBoredom
+    public interface IWebaoBoredom
     {
         [Get("activity?key={key}")]
         [Mapping(typeof(Boredom), ".")]

@@ -7,7 +7,7 @@ namespace WebaoDynamic
 {
     [BaseUrl("https://anapioficeandfire.com/api/")]
     [AddParameter("format", "json")]
-    public interface WebaoDynCharacter
+    public interface IWebaoCharacter
     {
         [Get("characters/{id}")]
         [Mapping(typeof(Character), ".")]

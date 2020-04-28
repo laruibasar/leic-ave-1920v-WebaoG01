@@ -14,16 +14,17 @@ namespace WebaoTestProject
         static readonly WebaoArtistDummy webaoArtistDummy = new WebaoArtistDummy(new HttpRequest());
         static readonly WebaoArtistDummy webaoArtistDummyMock = new WebaoArtistDummy(new LastfmMockRequest());
 
-        static readonly WebaoDynBoredom boredomWebao = (WebaoDynBoredom)WebaoDynBuilder.Build(typeof(WebaoDynBoredom), new HttpRequest());
-        static readonly WebaoBoredomDummy boredomWebaoMock = new WebaoBoredomDummy(new MockRequest());
+        static readonly IWebaoBoredom boredomWebao = (IWebaoBoredom)WebaoDynBuilder.Build(typeof(IWebaoBoredom), new HttpRequest());
+        static readonly IWebaoBoredom boredomWebaoMock = (IWebaoBoredom)WebaoDynBuilder.Build(typeof(IWebaoBoredom), new MockRequest());
 
-        static readonly WebaoCountryDummy countryWebao = new WebaoCountryDummy(new HttpRequest());
-        static readonly WebaoCountryDummy countryWebaoMock = new WebaoCountryDummy(new MockRequest());
+        static readonly IWebaoCountry countryWebao = (IWebaoCountry)WebaoDynBuilder.Build(typeof(IWebaoCountry), new HttpRequest());
+        static readonly IWebaoCountry countryWebaoMock = (IWebaoCountry)WebaoDynBuilder.Build(typeof(IWebaoCountry), new MockRequest());
 
         static readonly WebaoTrackDummy trackWebao = new WebaoTrackDummy(new HttpRequest());
         static readonly WebaoTrackDummy trackWebaoMock = new WebaoTrackDummy(new MockRequest());
 
         static readonly WebaoCharacterDummy webaoCharacterDummy = new WebaoCharacterDummy(new HttpRequest());
+        //static readonly IWebaoCharacter characterWebao = (IWebaoCharacter)WebaoDynBuilder.Build(typeof(IWebaoCharacter), new HttpRequest());
         static readonly WebaoCharacterDummy webaoCharacterDummyMock = new WebaoCharacterDummy(new MockRequest());
 
         [Test]

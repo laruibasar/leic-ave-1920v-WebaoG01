@@ -8,10 +8,10 @@ namespace WebaoDynamic
 {
     public class WebaoDynBuilder
     {
-        public static WebaoDyn Build(Type type, IRequest req)
+        public static object Build(Type type, IRequest req)
         {
             TypeInfo typeInfo = type.GetTypeInfo();
-            string TheName = typeInfo.Name + "Implementation";
+            string TheName = "Emit" + typeInfo.Name;
 
             string ASM_NAME = TheName;
             string MOD_NAME = TheName;
@@ -31,7 +31,8 @@ namespace WebaoDynamic
                 asmBuilder.DefineDynamicModule(MOD_NAME, DLL_NAME);
 
             // Define type in module
-            TypeBuilder typBuilder = modBuilder.DefineType(TYP_NAME);
+            TypeBuilder typBuilder =
+                modBuilder.DefineType(TYP_NAME, TypeAttributes.Public);
             typBuilder.SetParent(typeof(WebaoDyn));
 
             typBuilder.AddInterfaceImplementation(type);
@@ -60,7 +61,8 @@ namespace WebaoDynamic
                         method.Name,
                         MethodAttributes.Public |
                         MethodAttributes.Virtual |
-                        MethodAttributes.NewSlot,
+                        MethodAttributes.NewSlot |
+                        MethodAttributes.Final,
                         method.ReturnType,
                         methodParameters
                         );
@@ -71,9 +73,7 @@ namespace WebaoDynamic
 
             asmBuilder.Save(DLL_NAME);
 
-            WebaoDyn webao = (WebaoDyn)Activator.CreateInstance(webaoType);
-
-            return webao;
+            return Activator.CreateInstance(webaoType, req);
         }
     }
 }

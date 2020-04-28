@@ -31,8 +31,7 @@ namespace WebaoDynDummy
             path = path.Replace("{name}", name.ToString());
             path = path.Replace("{page}", page.ToString());
 
-            Type type = typeof(DtoSearch);
-            DtoSearch dto = (DtoSearch)base.GetRequest(path, type);
+            DtoSearch dto = (DtoSearch)base.GetRequest(path, typeof(DtoSearch));
 
             return dto.Results.ArtistMatches.Artist;
         }

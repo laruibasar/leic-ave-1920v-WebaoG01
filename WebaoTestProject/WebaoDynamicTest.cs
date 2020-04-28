@@ -14,7 +14,7 @@ namespace WebaoTestProject
         static readonly WebaoArtistDummy webaoArtistDummy = new WebaoArtistDummy(new HttpRequest());
         static readonly WebaoArtistDummy webaoArtistDummyMock = new WebaoArtistDummy(new LastfmMockRequest());
 
-        static readonly WebaoBoredomDummy boredomWebao = (WebaoBoredomDummy)WebaoDynBuilder.Build(typeof(WebaoDynBoredom), new HttpRequest());
+        static readonly WebaoDynBoredom boredomWebao = (WebaoDynBoredom)WebaoDynBuilder.Build(typeof(WebaoDynBoredom), new HttpRequest());
         static readonly WebaoBoredomDummy boredomWebaoMock = new WebaoBoredomDummy(new MockRequest());
 
         static readonly WebaoCountryDummy countryWebao = new WebaoCountryDummy(new HttpRequest());

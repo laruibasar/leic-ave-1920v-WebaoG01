@@ -80,7 +80,12 @@ namespace WebaoDynamic
             il.EmitCall(OpCodes.Call, baseGetRequest, null);
 
             string domain = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name);
-            //il.Emit(OpCodes.Castclass, );
+            if (domain.Equals("."))
+            {
+                domain = "." + WebaoOps.GetMappingType(typeInfo, metBuilder.Name).Name;
+            }
+            Type returnType = Type.GetType("WebaoTestProject.Dto" + domain);
+            il.Emit(OpCodes.Castclass, returnType);
 
             il.Emit(OpCodes.Ret);
         }

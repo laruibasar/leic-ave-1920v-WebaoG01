@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using Webao;
@@ -41,7 +40,7 @@ namespace WebaoDynamic
                 typBuilder.DefineConstructor(
                     MethodAttributes.Public,
                     CallingConventions.Standard,
-                    new Type[] { typeof(IRequest) }
+                    new Type[1] { typeof(IRequest) }
                 );
             WebaoEmitter.ConstructorEmitter(constBuilder, typeInfo);
             
@@ -73,7 +72,7 @@ namespace WebaoDynamic
 
             asmBuilder.Save(DLL_NAME);
 
-            return Activator.CreateInstance(webaoType, req);
+            return (object)Activator.CreateInstance(webaoType, req);
         }
     }
 }

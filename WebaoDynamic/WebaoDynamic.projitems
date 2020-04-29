@@ -12,7 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IWebaoArtist.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoDynBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IWebaoCountry.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WebaoDynTrack.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IWebaoTrack.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoOps.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IWebaoBoredom.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IWebaoCharacter.cs" />

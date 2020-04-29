@@ -11,7 +11,8 @@ namespace WebaoDynamic
         public static void MethodEmitter(
             MethodBuilder metBuilder,
             TypeInfo typeInfo,
-            ParameterInfo[] parameterInfos)
+            ParameterInfo[] parameterInfos
+            )
         {
             ILGenerator il = metBuilder.GetILGenerator();
 
@@ -68,13 +69,32 @@ namespace WebaoDynamic
             il.EmitCall(OpCodes.Call, baseGetRequest, null);
 
             string domain = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name);
+            Type returnType = null;
+
             if (domain.Equals("."))
             {
                 domain = "." + WebaoOps.GetMappingType(typeInfo, metBuilder.Name).Name;
+                returnType = Type.GetType("WebaoTestProject.Dto" + domain);
+                il.Emit(OpCodes.Castclass, returnType);
             }
-            Type returnType = Type.GetType("WebaoTestProject.Dto" + domain);
-            il.Emit(OpCodes.Castclass, returnType);
-
+            else
+            {
+                /* treat .Tracks.track kind of domain
+                 * We have to deal with every strange method, so a switch can be
+                 * the best option, with fallthrough for reduce clutter
+                 */
+                switch (typeInfo.Name)
+                {
+                    case "IWebaoArtist":
+                    case "IWebaoCountry":
+                    case "IWebaoTrack":
+                    case "IWebaoCharater":
+                        break;
+                    default:
+                        break;
+                }
+            }
+ 
             il.Emit(OpCodes.Ret);
         }
 
@@ -89,9 +109,9 @@ namespace WebaoDynamic
              */
             ConstructorInfo baseCtor = typeof(WebaoDyn).GetConstructor(
                 BindingFlags.Public |
-                BindingFlags.FlattenHierarchy |
                 BindingFlags.Instance,
                 null,
+                CallingConventions.Any,
                 new Type[] { typeof(IRequest) },
                 null);
 

@@ -20,12 +20,11 @@ namespace WebaoTestProject
         static readonly IWebaoCountry countryWebao = (IWebaoCountry)WebaoDynBuilder.Build(typeof(IWebaoCountry), new HttpRequest());
         static readonly IWebaoCountry countryWebaoMock = (IWebaoCountry)WebaoDynBuilder.Build(typeof(IWebaoCountry), new MockRequest());
 
-        static readonly WebaoTrackDummy trackWebao = new WebaoTrackDummy(new HttpRequest());
-        static readonly WebaoTrackDummy trackWebaoMock = new WebaoTrackDummy(new MockRequest());
+        static readonly IWebaoTrack trackWebao = (IWebaoTrack)WebaoDynBuilder.Build(typeof(IWebaoTrack), new HttpRequest());
+        static readonly IWebaoTrack trackWebaoMock = (IWebaoTrack)WebaoDynBuilder.Build(typeof(IWebaoTrack), new MockRequest());
 
-        static readonly WebaoCharacterDummy webaoCharacterDummy = new WebaoCharacterDummy(new HttpRequest());
-        //static readonly IWebaoCharacter characterWebao = (IWebaoCharacter)WebaoDynBuilder.Build(typeof(IWebaoCharacter), new HttpRequest());
-        static readonly WebaoCharacterDummy webaoCharacterDummyMock = new WebaoCharacterDummy(new MockRequest());
+        static readonly IWebaoCharacter characterWebao = (IWebaoCharacter)WebaoDynBuilder.Build(typeof(IWebaoCharacter), new HttpRequest());
+        static readonly IWebaoCharacter webaoCharacterDummyMock = (IWebaoCharacter)WebaoDynBuilder.Build(typeof(IWebaoCharacter), new MockRequest());
 
         [Test]
         public void TestWebaoArtist()
@@ -132,11 +131,11 @@ namespace WebaoTestProject
             Assert.AreEqual("Mr. Brightside", tracks[1].Name);
             Assert.AreEqual("The Killers", tracks[1].Artist.Name);
         }
-
+        
         [Test]
         public void TestWebaoCharacter()
         {
-            Character character = webaoCharacterDummy.GetCharacter(583);
+            Character character = characterWebao.GetCharacter(583);
             Assert.AreEqual("Jon Snow", character.Name);
             Assert.AreEqual("Northmen", character.Culture);
             Assert.AreEqual("In 283 AC", character.Born);

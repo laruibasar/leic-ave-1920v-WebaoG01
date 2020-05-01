@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using Webao;
+using WebaoTestProject.Dto;
 
 namespace WebaoDynamic
 {
@@ -24,8 +25,16 @@ namespace WebaoDynamic
              */
             LocalBuilder lbPath = il.DeclareLocal(typeof(string));
             lbPath.SetLocalSymInfo("path");
-            LocalBuilder lbReturnObj = il.DeclareLocal(typeof(Type));
-            lbPath.SetLocalSymInfo("type");
+
+            if (metBuilder.Name.Equals("GeoGetTopTracks"))
+            {
+                LocalBuilder vt1 = il.DeclareLocal(typeof(DtoGeoTopTracks));
+                lbPath.SetLocalSymInfo("vt1");
+
+                LocalBuilder vt2 = il.DeclareLocal(typeof(DtoTracks));
+                lbPath.SetLocalSymInfo("vt2");
+            }
+
 
             /* We call methods:
              *  - base.GetRequest
@@ -51,13 +60,15 @@ namespace WebaoDynamic
                     il.Emit(OpCodes.Stloc_0);
                     il.Emit(OpCodes.Ldloc_0);
                     il.Emit(OpCodes.Ldstr, "{" + pi.Name + "}");
-                    il.Emit(OpCodes.Ldarga_S, pi.Position + 1); /* 0 -> this */
+                    
                     if (pi.ParameterType == typeof(string))
                     {
-                        il.Emit(OpCodes.Callvirt, pi.ParameterType.GetMethod("ToString", new Type[0]));
+                        il.Emit(OpCodes.Ldarg, pi.Position + 1); /* 0 -> this */
+                        il.Emit(OpCodes.Callvirt,  typeof(object).GetMethod("ToString", new Type[0]));
                     }
                     else
                     {
+                        il.Emit(OpCodes.Ldarga_S, pi.Position + 1); /* 0 -> this */
                         il.Emit(OpCodes.Call, pi.ParameterType.GetMethod("ToString", new Type[0]));
                     }
                     il.EmitCall(OpCodes.Callvirt, callStringRpl, null);
@@ -75,10 +86,12 @@ namespace WebaoDynamic
 
             domain = "." + WebaoOps.GetMappingType(typeInfo, metBuilder.Name).Name;
             returnType = Type.GetType("WebaoTestProject.Dto" + domain);
-            il.Emit(OpCodes.Castclass, returnType);
 
-            if (!domain.Equals("."))
-            {
+            
+            
+
+
+            
                 /* treat .Tracks.track kind of domain
                     * We have to deal with every strange method, so a switch can be
                     * the best option, with fallthrough for reduce clutter
@@ -86,21 +99,26 @@ namespace WebaoDynamic
 
                 String mappingPath = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name).Substring(1);
                 MethodInfo mii;
-                switch (metBuilder.Name)
+            string[] domains = mappingPath.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            switch (metBuilder.Name)
                 { 
                     case "GetInfo":
-                        
-                        PropertyInfo pii = returnType.GetProperty(mappingPath);
-                        mii = pii.GetGetMethod();
-                        il.EmitCall(OpCodes.Callvirt, mii, null);    
-                        break;
-
                     case "Search":
+                    case "GetNationality":                   
+                    case "GetList":
 
-                        Type tii = returnType; 
+                    il.Emit(OpCodes.Castclass, returnType);
+
+                    //PropertyInfo pii = returnType.GetProperty(mappingPath);
+                    //mii = pii.GetGetMethod();
+                    //il.EmitCall(OpCodes.Callvirt, mii, null);    
+                    //break;                    
+
+                    Type tii = returnType; 
                         PropertyInfo prop;
 
-                        string[] domains = mappingPath.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                        
                         foreach (string d in domains)
                         {
                             prop = tii.GetProperty(d);
@@ -110,13 +128,23 @@ namespace WebaoDynamic
                         }
                         break;
 
-                    case "IWebaoTrack":
-                    case "IWebaoCharater":
-                        break;
+                   
+                    case "GeoGetTopTracks":
+
+                    il.Emit(OpCodes.Unbox_Any, returnType);
+                    il.Emit(OpCodes.Stloc_1);
+                    il.Emit(OpCodes.Ldloca_S, 1);
+                    il.Emit(OpCodes.Call, returnType.GetProperty(domains[0]).GetGetMethod());
+
+                    il.Emit(OpCodes.Stloc_2);
+                    il.Emit(OpCodes.Ldloca_S, 2);
+                    il.Emit(OpCodes.Call, returnType.GetProperty(domains[0]).PropertyType.GetProperty(domains[1]).GetGetMethod());
+                    
+                    break;
                     default:
                         break;
                 }
-            }
+            
             
             il.Emit(OpCodes.Ret);
         }

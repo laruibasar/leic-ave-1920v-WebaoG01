@@ -8,6 +8,8 @@ namespace WebaoDynamic
 {
     public class WebaoEmitter
     {
+        private readonly static char[] separator = new char[] { '.' };
+
         public static void MethodEmitter(
             MethodBuilder metBuilder,
             TypeInfo typeInfo,
@@ -71,22 +73,47 @@ namespace WebaoDynamic
             string domain = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name);
             Type returnType = null;
 
-            if (domain.Equals("."))
-            {
-                domain = "." + WebaoOps.GetMappingType(typeInfo, metBuilder.Name).Name;
-                returnType = Type.GetType("WebaoTestProject.Dto" + domain);
-                il.Emit(OpCodes.Castclass, returnType);
-            }
-            else
+            domain = "." + WebaoOps.GetMappingType(typeInfo, metBuilder.Name).Name;
+            returnType = Type.GetType("WebaoTestProject.Dto" + domain);
+            il.Emit(OpCodes.Castclass, returnType);
+
+            if (!domain.Equals("."))
             {
                 /* treat .Tracks.track kind of domain
-                 * We have to deal with every strange method, so a switch can be
-                 * the best option, with fallthrough for reduce clutter
-                 */
-                switch (typeInfo.Name)
-                {
-                    case "IWebaoArtist":
-                    case "IWebaoCountry":
+                    * We have to deal with every strange method, so a switch can be
+                    * the best option, with fallthrough for reduce clutter
+                    */
+                switch (metBuilder.Name)
+                { 
+                    case "GetInfo":
+                        String s = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name).Substring(1);
+                        PropertyInfo pii = returnType.GetProperty(s);
+                        MethodInfo mii = pii.GetGetMethod();
+                        il.EmitCall(OpCodes.Callvirt, mii, null);    
+                        break;
+
+                    case "Search":
+                        String s1 = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name).Substring(1);
+
+                        Type tii;
+                        PropertyInfo prop;
+                        object newObj = new object();
+                        object obj = null; 
+
+                        string[] domains = s1.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                        foreach (string d in domains)
+                        {
+                            prop = returnType.GetProperty(d);
+                            //newObj = prop.GetValue(obj); 
+                            //tii = newObj.GetType();  
+                            //obj = newObj;     
+
+                            //PropertyInfo pii1 = returnType.GetProperty(s1);
+                            //MethodInfo mii1 = pii1.GetGetMethod();
+                            //il.EmitCall(OpCodes.Callvirt, mii1, null);
+                        }
+                        break;
+
                     case "IWebaoTrack":
                     case "IWebaoCharater":
                         break;
@@ -94,7 +121,7 @@ namespace WebaoDynamic
                         break;
                 }
             }
- 
+            
             il.Emit(OpCodes.Ret);
         }
 

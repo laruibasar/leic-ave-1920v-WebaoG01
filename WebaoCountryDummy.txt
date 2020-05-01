@@ -1,0 +1,51 @@
+.class public auto ansi beforefieldinit WebaoDynDummy.WebaoCountryDummy
+       extends WebaoDynamic.WebaoDyn
+       implements WebaoDynamic.WebaoDynCountry
+{
+  .method public hidebysig specialname rtspecialname 
+          instance void  .ctor([Webao]Webao.IRequest req) cil managed
+  {
+    // Code size       35 (0x23)
+    .maxstack  8
+    IL_0000:  ldarg.0
+    IL_0001:  ldarg.1
+    IL_0002:  call       instance void WebaoDynamic.WebaoDyn::.ctor([Webao]Webao.IRequest)
+    IL_0007:  ldarg.0
+    IL_0008:  ldstr      "https://api.nationalize.io"
+    IL_000d:  call       instance void WebaoDynamic.WebaoDyn::SetUrl(string)
+    IL_0012:  ldarg.0
+    IL_0013:  ldstr      "format"
+    IL_0018:  ldstr      "json"
+    IL_001d:  call       instance void WebaoDynamic.WebaoDyn::SetParameter(string,
+                                                                           string)
+    IL_0022:  ret
+  } // end of method WebaoCountryDummy::.ctor
+
+  .method public hidebysig newslot virtual final 
+          instance [mscorlib]System.Collections.Generic.List`1<class WebaoTestProject.Dto.Country> 
+          GetNationality(string name) cil managed
+  {
+    // Code size       52 (0x34)
+    .maxstack  3
+    .locals init (string V_0)
+    IL_0000:  ldstr      "\?name={name}"
+    IL_0005:  stloc.0
+    IL_0006:  ldloc.0
+    IL_0007:  ldstr      "{name}"
+    IL_000c:  ldarg.1
+    IL_000d:  callvirt   instance string [mscorlib]System.Object::ToString()
+    IL_0012:  callvirt   instance string [mscorlib]System.String::Replace(string,
+                                                                          string)
+    IL_0017:  stloc.0
+    IL_0018:  ldarg.0
+    IL_0019:  ldloc.0
+    IL_001a:  ldtoken    WebaoTestProject.Dto.DtoCountrySearch
+    IL_001f:  call       [mscorlib]System.Type [mscorlib]System.Type::GetTypeFromHandle([mscorlib]System.RuntimeTypeHandle)
+    IL_0024:  call       instance object WebaoDynamic.WebaoDyn::GetRequest(string,
+                                                                           [mscorlib]System.Type)
+    IL_0029:  castclass  WebaoTestProject.Dto.DtoCountrySearch
+    IL_002e:  callvirt   instance [mscorlib]System.Collections.Generic.List`1<class WebaoTestProject.Dto.Country> WebaoTestProject.Dto.DtoCountrySearch::get_Country()
+    IL_0033:  ret
+  } // end of method WebaoCountryDummy::GetNationality
+
+} // end of class WebaoDynDummy.WebaoCountryDummy

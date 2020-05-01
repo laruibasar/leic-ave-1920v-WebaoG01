@@ -1,0 +1,93 @@
+.class public auto ansi beforefieldinit WebaoDynDummy.WebaoArtistDummy
+       extends WebaoDynamic.WebaoDyn
+       implements WebaoDynamic.WebaoDynArtist
+{
+  .method public hidebysig specialname rtspecialname 
+          instance void  .ctor([Webao]Webao.IRequest req) cil managed
+  {
+    // Code size       51 (0x33)
+    .maxstack  8
+    IL_0000:  ldarg.0
+    IL_0001:  ldarg.1
+    IL_0002:  call       instance void WebaoDynamic.WebaoDyn::.ctor([Webao]Webao.IRequest)
+    IL_0007:  ldarg.0
+    IL_0008:  ldstr      "http://ws.audioscrobbler.com/2.0/"
+    IL_000d:  call       instance void WebaoDynamic.WebaoDyn::SetUrl(string)
+    IL_0012:  ldarg.0
+    IL_0013:  ldstr      "format"
+    IL_0018:  ldstr      "json"
+    IL_001d:  call       instance void WebaoDynamic.WebaoDyn::SetParameter(string,
+                                                                           string)
+    IL_0022:  ldarg.0
+    IL_0023:  ldstr      "api_key"
+    IL_0028:  ldstr      "a6c9a2229d0a79160dd93641841b0676"
+    IL_002d:  call       instance void WebaoDynamic.WebaoDyn::SetParameter(string,
+                                                                           string)
+    IL_0032:  ret
+  } // end of method WebaoArtistDummy::.ctor
+
+  .method public hidebysig newslot virtual final 
+          instance class WebaoTestProject.Dto.Artist 
+          GetInfo(string name) cil managed
+  {
+    // Code size       52 (0x34)
+    .maxstack  3
+    .locals init (string V_0)
+    IL_0000:  ldstr      "\?method=artist.getinfo&artist={name}"
+    IL_0005:  stloc.0
+    IL_0006:  ldloc.0
+    IL_0007:  ldstr      "{name}"
+    IL_000c:  ldarg.1
+    IL_000d:  callvirt   instance string [mscorlib]System.Object::ToString()
+    IL_0012:  callvirt   instance string [mscorlib]System.String::Replace(string,
+                                                                          string)
+    IL_0017:  stloc.0
+    IL_0018:  ldarg.0
+    IL_0019:  ldloc.0
+    IL_001a:  ldtoken    WebaoTestProject.Dto.DtoArtist
+    IL_001f:  call       [mscorlib]System.Type [mscorlib]System.Type::GetTypeFromHandle([mscorlib]System.RuntimeTypeHandle)
+    IL_0024:  call       instance object WebaoDynamic.WebaoDyn::GetRequest(string,
+                                                                           [mscorlib]System.Type)
+    IL_0029:  castclass  WebaoTestProject.Dto.DtoArtist
+    IL_002e:  callvirt   instance class WebaoTestProject.Dto.Artist WebaoTestProject.Dto.DtoArtist::get_Artist()
+    IL_0033:  ret
+  } // end of method WebaoArtistDummy::GetInfo
+
+  .method public hidebysig newslot virtual final 
+          instance [mscorlib]System.Collections.Generic.List`1<class WebaoTestProject.Dto.Artist> 
+          Search(string name,
+                 int32 page) cil managed
+  {
+    // Code size       81 (0x51)
+    .maxstack  3
+    .locals init (string V_0)
+    IL_0000:  ldstr      "\?method=artist.getinfo&artist={name}"
+    IL_0005:  stloc.0
+    IL_0006:  ldloc.0
+    IL_0007:  ldstr      "{name}"
+    IL_000c:  ldarg.1
+    IL_000d:  callvirt   instance string [mscorlib]System.Object::ToString()
+    IL_0012:  callvirt   instance string [mscorlib]System.String::Replace(string,
+                                                                          string)
+    IL_0017:  stloc.0
+    IL_0018:  ldloc.0
+    IL_0019:  ldstr      "{page}"
+    IL_001e:  ldarga.s   page
+    IL_0020:  call       instance string [mscorlib]System.Int32::ToString()
+    IL_0025:  callvirt   instance string [mscorlib]System.String::Replace(string,
+                                                                          string)
+    IL_002a:  stloc.0
+    IL_002b:  ldarg.0
+    IL_002c:  ldloc.0
+    IL_002d:  ldtoken    WebaoTestProject.Dto.DtoSearch
+    IL_0032:  call       [mscorlib]System.Type [mscorlib]System.Type::GetTypeFromHandle([mscorlib]System.RuntimeTypeHandle)
+    IL_0037:  call       instance object WebaoDynamic.WebaoDyn::GetRequest(string,
+                                                                           [mscorlib]System.Type)
+    IL_003c:  castclass  WebaoTestProject.Dto.DtoSearch
+    IL_0041:  callvirt   instance class WebaoTestProject.Dto.DtoResults WebaoTestProject.Dto.DtoSearch::get_Results()
+    IL_0046:  callvirt   instance class WebaoTestProject.Dto.DtoArtistMatches WebaoTestProject.Dto.DtoResults::get_ArtistMatches()
+    IL_004b:  callvirt   instance [mscorlib]System.Collections.Generic.List`1<class WebaoTestProject.Dto.Artist> WebaoTestProject.Dto.DtoArtistMatches::get_Artist()
+    IL_0050:  ret
+  } // end of method WebaoArtistDummy::Search
+
+} // end of class WebaoDynDummy.WebaoArtistDummy

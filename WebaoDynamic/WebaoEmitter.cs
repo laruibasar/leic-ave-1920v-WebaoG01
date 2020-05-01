@@ -49,13 +49,14 @@ namespace WebaoDynamic
                     il.Emit(OpCodes.Stloc_0);
                     il.Emit(OpCodes.Ldloc_0);
                     il.Emit(OpCodes.Ldstr, "{" + pi.Name + "}");
-                    il.Emit(OpCodes.Ldarga_S, pi.Position + 1); /* 0 -> this */
                     if (pi.ParameterType == typeof(string))
                     {
-                        il.Emit(OpCodes.Callvirt, pi.ParameterType.GetMethod("ToString", new Type[0]));
+                        il.Emit(OpCodes.Ldarg, pi.Position + 1); /* 0 -> this */
+                        il.EmitCall(OpCodes.Callvirt, typeof(object).GetMethod("ToString", new Type[0]), null);
                     }
                     else
                     {
+                        il.Emit(OpCodes.Ldarga_S, pi.Position + 1); /* 0 -> this */
                         il.Emit(OpCodes.Call, pi.ParameterType.GetMethod("ToString", new Type[0]));
                     }
                     il.EmitCall(OpCodes.Callvirt, callStringRpl, null);
@@ -64,35 +65,54 @@ namespace WebaoDynamic
             il.Emit(OpCodes.Stloc_0);
             il.Emit(OpCodes.Ldarg_0);
             il.Emit(OpCodes.Ldloc_0);
-            il.Emit(OpCodes.Ldtoken, WebaoOps.GetMappingType(typeInfo, metBuilder.Name));
+
+            Type callReturnType = WebaoOps.GetMappingType(typeInfo, metBuilder.Name);
+            il.Emit(OpCodes.Ldtoken, callReturnType);
             il.EmitCall(OpCodes.Call, callTypeOf, null);
             il.EmitCall(OpCodes.Call, baseGetRequest, null);
 
-            string domain = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name);
-            Type returnType = null;
+            string[] domains = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name).Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+            PropertyInfo property = null;
+            Type oldType = null;
 
-            if (domain.Equals("."))
+            switch (metBuilder.Name)
             {
-                domain = "." + WebaoOps.GetMappingType(typeInfo, metBuilder.Name).Name;
-                returnType = Type.GetType("WebaoTestProject.Dto" + domain);
-                il.Emit(OpCodes.Castclass, returnType);
-            }
-            else
-            {
-                /* treat .Tracks.track kind of domain
-                 * We have to deal with every strange method, so a switch can be
-                 * the best option, with fallthrough for reduce clutter
-                 */
-                switch (typeInfo.Name)
-                {
-                    case "IWebaoArtist":
-                    case "IWebaoCountry":
-                    case "IWebaoTrack":
-                    case "IWebaoCharater":
-                        break;
-                    default:
-                        break;
-                }
+                case "GetActivityByKey":
+                case "GetActivity":
+                    il.Emit(OpCodes.Castclass, callReturnType);
+                    break;
+                case "GetInfo":
+                case "Search":
+                case "GetCharacter":
+                case "GetList":
+                case "GetNationality":
+                    il.Emit(OpCodes.Castclass, callReturnType);
+                    oldType = callReturnType;
+                    foreach (string domain in domains)
+                    {
+                        property = oldType.GetProperty(domain);
+                        il.EmitCall(OpCodes.Callvirt, property.GetGetMethod(), null);
+                        oldType = property.PropertyType;
+                    }
+                    break;
+                case "GeoGetTopTracks":
+                    // unbox
+                    il.Emit(OpCodes.Unbox_Any, callReturnType);
+
+                    il.Emit(OpCodes.Stloc_1);
+                    il.Emit(OpCodes.Ldloca_S, 1);
+                    oldType = callReturnType;
+                    property = oldType.GetProperty(domains[0]);
+                    il.EmitCall(OpCodes.Call, property.GetGetMethod(), null);
+
+                    il.Emit(OpCodes.Stloc_2);
+                    il.Emit(OpCodes.Ldloca_S, 2);
+                    oldType = property.PropertyType; ;
+                    property = oldType.GetProperty(domains[1]);
+                    il.EmitCall(OpCodes.Call, property.GetGetMethod(), null);
+                    break;
+                default:
+                    break;
             }
  
             il.Emit(OpCodes.Ret);

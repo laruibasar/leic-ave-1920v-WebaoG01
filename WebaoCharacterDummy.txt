@@ -1,0 +1,72 @@
+.class public auto ansi beforefieldinit WebaoDynDummy.WebaoCharacterDummy
+       extends WebaoDynamic.WebaoDyn
+       implements WebaoDynamic.WebaoDynCharacter
+{
+  .method public hidebysig specialname rtspecialname 
+          instance void  .ctor([Webao]Webao.IRequest req) cil managed
+  {
+    // Code size       35 (0x23)
+    .maxstack  8
+    IL_0000:  ldarg.0
+    IL_0001:  ldarg.1
+    IL_0002:  call       instance void WebaoDynamic.WebaoDyn::.ctor([Webao]Webao.IRequest)
+    IL_0007:  ldarg.0
+    IL_0008:  ldstr      "https://anapioficeandfire.com/api/"
+    IL_000d:  call       instance void WebaoDynamic.WebaoDyn::SetUrl(string)
+    IL_0012:  ldarg.0
+    IL_0013:  ldstr      "format"
+    IL_0018:  ldstr      "json"
+    IL_001d:  call       instance void WebaoDynamic.WebaoDyn::SetParameter(string,
+                                                                           string)
+    IL_0022:  ret
+  } // end of method WebaoCharacterDummy::.ctor
+
+  .method public hidebysig newslot virtual final 
+          instance class WebaoTestProject.Dto.Character 
+          GetCharacter(int32 id) cil managed
+  {
+    // Code size       48 (0x30)
+    .maxstack  3
+    .locals init (string V_0)
+    IL_0000:  ldstr      "characters/{id}"
+    IL_0005:  stloc.0
+    IL_0006:  ldloc.0
+    IL_0007:  ldstr      "{id}"
+    IL_000c:  ldarga.s   id
+    IL_000e:  call       instance string [mscorlib]System.Int32::ToString()
+    IL_0013:  callvirt   instance string [mscorlib]System.String::Replace(string,
+                                                                          string)
+    IL_0018:  stloc.0
+    IL_0019:  ldarg.0
+    IL_001a:  ldloc.0
+    IL_001b:  ldtoken    WebaoTestProject.Dto.Character
+    IL_0020:  call       [mscorlib]System.Type [mscorlib]System.Type::GetTypeFromHandle([mscorlib]System.RuntimeTypeHandle)
+    IL_0025:  call       instance object WebaoDynamic.WebaoDyn::GetRequest(string,
+                                                                           [mscorlib]System.Type)
+    IL_002a:  castclass  WebaoTestProject.Dto.Character
+    IL_002f:  ret
+  } // end of method WebaoCharacterDummy::GetCharacter
+
+  .method public hidebysig newslot virtual final 
+          instance [mscorlib]System.Collections.Generic.List`1<class WebaoTestProject.Dto.Character> 
+          GetList() cil managed
+  {
+    // Code size       44 (0x2c)
+    .maxstack  3
+    .locals init (string V_0)
+    IL_0000:  ldstr      "characters"
+    IL_0005:  stloc.0
+    IL_0006:  ldarg.0
+    IL_0007:  ldloc.0
+    IL_0008:  ldtoken    WebaoTestProject.Dto.DtoList
+    IL_000d:  call       [mscorlib]System.Type [mscorlib]System.Type::GetTypeFromHandle([mscorlib]System.RuntimeTypeHandle)
+    IL_0012:  call       instance object WebaoDynamic.WebaoDyn::GetRequest(string,
+                                                                           [mscorlib]System.Type)
+    IL_0017:  castclass  WebaoTestProject.Dto.DtoList
+    IL_001c:  callvirt   instance class WebaoTestProject.Dto.DtoListResults WebaoTestProject.Dto.DtoList::get_Results()
+    IL_0021:  callvirt   instance class WebaoTestProject.Dto.DtoCharacterMatches WebaoTestProject.Dto.DtoListResults::get_CharacterMatches()
+    IL_0026:  callvirt   instance [mscorlib]System.Collections.Generic.List`1<class WebaoTestProject.Dto.Character> WebaoTestProject.Dto.DtoCharacterMatches::get_Character()
+    IL_002b:  ret
+  } // end of method WebaoCharacterDummy::GetList
+
+} // end of class WebaoDynDummy.WebaoCharacterDummy

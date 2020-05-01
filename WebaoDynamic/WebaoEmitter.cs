@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using Webao;
+using WebaoTestProject.Dto;
 
 namespace WebaoDynamic
 {
@@ -22,9 +23,13 @@ namespace WebaoDynamic
              */
             LocalBuilder lbPath = il.DeclareLocal(typeof(string));
             lbPath.SetLocalSymInfo("path");
-            LocalBuilder lbReturnObj = il.DeclareLocal(typeof(Type));
-            lbPath.SetLocalSymInfo("type");
-
+            if (metBuilder.Name.Equals("GeoGetTopTracks"))
+            {
+                LocalBuilder lbGeoGetToTracks = il.DeclareLocal(typeof(DtoGeoTopTracks));
+                lbGeoGetToTracks.SetLocalSymInfo("retTopTracks");
+                LocalBuilder lbTracks = il.DeclareLocal(typeof(DtoTracks));
+                lbTracks.SetLocalSymInfo("retTracks");
+            }
             /* We call methods:
              *  - base.GetRequest
              *  - String.Replace

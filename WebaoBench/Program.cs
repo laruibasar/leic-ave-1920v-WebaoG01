@@ -4,9 +4,6 @@ namespace WebaoBench
 {
     class Program
     {
-
-
-
         public static Object call1()
         {
             //static readonly WebaoArtist artistWebao = (WebaoArtist)WebaoBuilder.Build(typeof(WebaoArtist), new HttpRequest());
@@ -21,7 +18,6 @@ namespace WebaoBench
             const long NUM_ITER = 10;
 
             Console.WriteLine("START!");
-
             NBench.Benchmark(new BenchmarkMethod(call1), "call1", ITER_TIME, NUM_WARMUP, NUM_ITER);
                        
         }

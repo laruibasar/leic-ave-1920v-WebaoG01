@@ -351,3 +351,5 @@ MigrationBackup/
 
 # Mac special folders
 .DS_Store
+*.sln
+*.sln

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Webao.Attributes;
 using WebaoTestProject.Dto;
 
 namespace WebaoDynamic
 {
     [BaseUrl("https://anapioficeandfire.com/api/")]
-    public interface WebaoDynCharacter
+    [AddParameter("format", "json")]
+    public interface IWebaoCharacter
     {
         [Get("characters/{id}")]
         [Mapping(typeof(Character), ".")]

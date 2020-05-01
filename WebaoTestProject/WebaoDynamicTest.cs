@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Webao;
+using WebaoDynamic;
 using WebaoDynDummy;
 using WebaoTestProject.Dto;
 
@@ -10,25 +11,25 @@ namespace WebaoTestProject
     [TestFixture]
     public class WebaoDynamicTest
     {
-        static readonly WebaoArtistDummy webaoArtistDummy = new WebaoArtistDummy(new HttpRequest());
-        static readonly WebaoArtistDummy webaoArtistDummyMock = new WebaoArtistDummy(new LastfmMockRequest());
+        static readonly IWebaoArtist webaoArtist = (IWebaoArtist)WebaoDynBuilder.Build(typeof(IWebaoArtist), new HttpRequest());
+        static readonly IWebaoArtist webaoArtistMock = (IWebaoArtist)WebaoDynBuilder.Build(typeof(IWebaoArtist), new LastfmMockRequest());
 
-        static readonly WebaoBoredomDummy boredomWebao = new WebaoBoredomDummy(new HttpRequest());
-        static readonly WebaoBoredomDummy boredomWebaoMock = new WebaoBoredomDummy(new MockRequest());
+        static readonly IWebaoBoredom boredomWebao = (IWebaoBoredom)WebaoDynBuilder.Build(typeof(IWebaoBoredom), new HttpRequest());
+        static readonly IWebaoBoredom boredomWebaoMock = (IWebaoBoredom)WebaoDynBuilder.Build(typeof(IWebaoBoredom), new MockRequest());
 
-        static readonly WebaoCountryDummy countryWebao = new WebaoCountryDummy(new HttpRequest());
-        static readonly WebaoCountryDummy countryWebaoMock = new WebaoCountryDummy(new MockRequest());
+        static readonly IWebaoCountry countryWebao = (IWebaoCountry)WebaoDynBuilder.Build(typeof(IWebaoCountry), new HttpRequest());
+        static readonly IWebaoCountry countryWebaoMock = (IWebaoCountry)WebaoDynBuilder.Build(typeof(IWebaoCountry), new MockRequest());
 
-        static readonly WebaoTrackDummy trackWebao = new WebaoTrackDummy(new HttpRequest());
-        static readonly WebaoTrackDummy trackWebaoMock = new WebaoTrackDummy(new MockRequest());
+        static readonly IWebaoTrack trackWebao = (IWebaoTrack)WebaoDynBuilder.Build(typeof(IWebaoTrack), new HttpRequest());
+        static readonly IWebaoTrack trackWebaoMock = (IWebaoTrack)WebaoDynBuilder.Build(typeof(IWebaoTrack), new MockRequest());
 
-        static readonly WebaoCharacterDummy webaoCharacterDummy = new WebaoCharacterDummy(new HttpRequest());
-        static readonly WebaoCharacterDummy webaoCharacterDummyMock = new WebaoCharacterDummy(new MockRequest());
+        static readonly IWebaoCharacter characterWebao = (IWebaoCharacter)WebaoDynBuilder.Build(typeof(IWebaoCharacter), new HttpRequest());
+        static readonly IWebaoCharacter webaoCharacterDummyMock = (IWebaoCharacter)WebaoDynBuilder.Build(typeof(IWebaoCharacter), new MockRequest());
 
         [Test]
         public void TestWebaoArtist()
         {
-            Artist artist = webaoArtistDummy.GetInfo("muse");
+            Artist artist = webaoArtist.GetInfo("muse");
             Assert.AreEqual("Muse", artist.Name);
             Assert.AreEqual("fd857293-5ab8-40de-b29e-55a69d4e4d0f", artist.Mbid);
             Assert.AreEqual("https://www.last.fm/music/Muse", artist.Url);
@@ -39,7 +40,7 @@ namespace WebaoTestProject
         [Test]
         public void TestWebaoArtistMock()
         {
-            Artist artist = webaoArtistDummyMock.GetInfo("muse");
+            Artist artist = webaoArtistMock.GetInfo("muse");
             Assert.AreEqual("Muse", artist.Name);
             Assert.AreEqual("fd857293-5ab8-40de-b29e-55a69d4e4d0f", artist.Mbid);
             Assert.AreEqual("https://www.last.fm/music/Muse", artist.Url);
@@ -50,7 +51,7 @@ namespace WebaoTestProject
         [Test] 
         public void TestWebaoArtistSearch()
         {
-            List<Artist> artists = webaoArtistDummy.Search("black", 1);
+            List<Artist> artists = webaoArtist.Search("black", 1);
             Assert.AreEqual("Black Sabbath", artists[1].Name);
             Assert.AreEqual("Black Eyed Peas", artists[2].Name);
         }
@@ -58,7 +59,7 @@ namespace WebaoTestProject
         [Test]
         public void TestWebaoArtistSearchMock()
         {
-            List<Artist> artists = webaoArtistDummyMock.Search("black", 1);
+            List<Artist> artists = webaoArtistMock.Search("black", 1);
             Assert.AreEqual("Black Sabbath", artists[1].Name);
             Assert.AreEqual("Black Eyed Peas", artists[2].Name);
         }
@@ -130,11 +131,11 @@ namespace WebaoTestProject
             Assert.AreEqual("Mr. Brightside", tracks[1].Name);
             Assert.AreEqual("The Killers", tracks[1].Artist.Name);
         }
-
+        
         [Test]
         public void TestWebaoCharacter()
         {
-            Character character = webaoCharacterDummy.GetCharacter(583);
+            Character character = characterWebao.GetCharacter(583);
             Assert.AreEqual("Jon Snow", character.Name);
             Assert.AreEqual("Northmen", character.Culture);
             Assert.AreEqual("In 283 AC", character.Born);

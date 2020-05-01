@@ -4,8 +4,8 @@ using WebaoTestProject.Dto;
 namespace WebaoDynamic
 {
     [BaseUrl("https://www.boredapi.com/api/")]
-    //[AddParameter("format", "json")]
-    public interface WebaoDynBoredom
+    [AddParameter("format", "json")]
+    public interface IWebaoBoredom
     {
         [Get("activity?key={key}")]
         [Mapping(typeof(Boredom), ".")]

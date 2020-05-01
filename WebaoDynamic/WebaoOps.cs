@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Webao.Attributes;
+using Webao.Base;
 
 namespace WebaoDynamic
 {
@@ -15,34 +16,54 @@ namespace WebaoDynamic
 
         public static string GetUrl(Type type)
 		{
-            BaseUrlAttribute url = (BaseUrlAttribute)Attribute.GetCustomAttribute(type, typeof(BaseUrlAttribute));
+            TypeInformation typeInfo = TypeInfoCache.Get(type);
+            BaseUrlAttribute url = (BaseUrlAttribute)typeInfo[typeof(BaseUrlAttribute).FullName][0];
             return url.host;
 		}
 
         public static Dictionary<string, string> GetParameters(Type type)
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
-            AddParameterAttribute[] parametersAttributes = (AddParameterAttribute[])Attribute
-                    .GetCustomAttributes(type, typeof(AddParameterAttribute));
+            TypeInformation typeInfo = TypeInfoCache.Get(type);
+
+            List<Attribute> parametersAttributes = typeInfo[typeof(AddParameterAttribute).FullName];
             foreach (AddParameterAttribute p in parametersAttributes)
             {
                 parameters.Add(p.name, p.val);
             }
-
             return parameters;
         }
 
         public static string GetQuery(Type type, string method)
         {
-            MethodInfo methodInfo = type.GetMethod(method);
-            GetAttribute get = (GetAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(GetAttribute));
+            //MethodInfo methodInfo = type.GetMethod(method);
+            TypeInformation typeInfo = TypeInfoCache.Get(type);
+            GetAttribute get = (GetAttribute)typeInfo[method + typeof(GetAttribute).FullName][0];
+            //GetAttribute get = (GetAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(GetAttribute));
             return get.path;
         }
 
-        public static MappingAttribute GetMapping(Type type, string method)
+        public static string GetMappingDomain(Type type, string method)
         {
-            MethodInfo methodInfo = type.GetMethod(method);
-            return (MappingAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(MappingAttribute));
+            //MethodInfo methodInfo = type.GetMethod(method);
+            TypeInformation typeInfo = TypeInfoCache.Get(type);
+            MappingAttribute map = (MappingAttribute)typeInfo[method + typeof(MappingAttribute).FullName][0];
+            //MappingAttribute map = (MappingAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(MappingAttribute));
+            return map.path;
+        }
+
+        public static Type GetMappingType(Type type, string method)
+        {
+            //MethodInfo methodInfo = type.GetMethod(method);
+            TypeInformation typeInfo = TypeInfoCache.Get(type);
+            MappingAttribute map = (MappingAttribute)typeInfo[method + typeof(MappingAttribute).FullName][0];
+            //MappingAttribute map = (MappingAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(MappingAttribute));
+            return map.destType;
+        }
+
+        public static MethodInfo[] GetMethods(Type type)
+        {
+            return type.GetMethods();
         }
     }
 }

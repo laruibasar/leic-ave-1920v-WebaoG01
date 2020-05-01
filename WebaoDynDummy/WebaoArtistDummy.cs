@@ -1,83 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Webao;
-using Webao.Attributes;
-using Webao.Base;
 using WebaoDynamic;
 using WebaoTestProject.Dto;
 
 namespace WebaoDynDummy  
 {
-    [AddParameter("format", "json")]
-    [AddParameter("api_key", LastFmAPI.API_KEY)]
-    public class WebaoArtistDummy : WebaoDynArtist
+    public class WebaoArtistDummy : WebaoDyn, IWebaoArtist
     {
-        private readonly IRequest req;
-        private readonly Dictionary<string, string> requestParameters;
-        private readonly char[] separator = new char[] { '.' };
-
-
-        public WebaoArtistDummy(IRequest req)
+        public WebaoArtistDummy(IRequest req) : base(req)
         {
-            this.req = req;
-
-            req.BaseUrl(WebaoOps.GetUrl(typeof(WebaoDynArtist)));
-            requestParameters = WebaoOps.GetParameters(typeof(WebaoArtistDummy));
-
-            foreach (KeyValuePair<string, string> pair in requestParameters)
-            {
-                req.AddParameter(pair.Key, pair.Value);
-            }
+            base.SetUrl("http://ws.audioscrobbler.com/2.0/");
+            base.SetParameter("format", "json");
+            base.SetParameter("api_key", "a6c9a2229d0a79160dd93641841b0676");
         }
 
         public Artist GetInfo(string name)
         {
-            string path = WebaoOps.GetQuery(typeof(WebaoDynArtist), "GetInfo");
+            string path = "?method=artist.getinfo&artist={name}";
             path = path.Replace("{name}", name.ToString());
 
-            MappingAttribute map = WebaoOps.GetMapping(typeof(WebaoDynArtist), "GetInfo");
-            string[] domains = map.path.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            DtoArtist dto = (DtoArtist)base.GetRequest(path, typeof(DtoArtist));
 
-            object obj = req.Get(path, map.destType);
-
-            Type type = obj.GetType();
-            PropertyInfo propInfo;
-
-            object newObj = new object();
-            foreach (string domain in domains)
-            {
-                propInfo = type.GetProperty(domain);
-                newObj = propInfo.GetValue(obj);
-                type = newObj.GetType();
-                obj = newObj;
-            }
-            return (Artist)obj;
+            return dto.Artist;
         } 
 
         public List<Artist> Search(string name, int page)
         {
-            string path = WebaoOps.GetQuery(typeof(WebaoDynArtist), "Search");
-            path = path.Replace("{name}", name.ToString());  
-            path = path.Replace("{page}", page.ToString());   
+            string path = "?method=artist.getinfo&artist={name}";
+            path = path.Replace("{name}", name.ToString());
+            path = path.Replace("{page}", page.ToString());
 
-            MappingAttribute map = WebaoOps.GetMapping(typeof(WebaoDynArtist), "Search");
-            string[] domains = map.path.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            DtoSearch dto = (DtoSearch)base.GetRequest(path, typeof(DtoSearch));
 
-            object obj = req.Get(path, map.destType);
-
-            Type type = obj.GetType(); 
-            PropertyInfo propInfo;
-
-            object newObj = new object();
-            foreach (string domain in domains)
-            { 
-                propInfo = type.GetProperty(domain);
-                newObj = propInfo.GetValue(obj);
-                type = newObj.GetType();
-                obj = newObj;
-            }
-            return (List<Artist>)obj;
+            return dto.Results.ArtistMatches.Artist;
         }
     }
 }

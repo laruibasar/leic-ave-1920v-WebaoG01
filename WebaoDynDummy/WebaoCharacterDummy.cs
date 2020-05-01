@@ -1,80 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Webao;
-using Webao.Attributes;
-using Webao.Base;
 using WebaoDynamic;
 using WebaoTestProject.Dto;
 
 namespace WebaoDynDummy
 {
-    [AddParameter("format", "json")]
-    public class WebaoCharacterDummy : WebaoDynCharacter
+    
+    public class WebaoCharacterDummy : WebaoDyn, IWebaoCharacter
     {
-        private readonly IRequest req;
-        private readonly Dictionary<string, string> requestParameters;
-        private readonly char[] separator = new char[] { '.' };
-
-
-        public WebaoCharacterDummy(IRequest req)
+        public WebaoCharacterDummy(IRequest req) : base(req)
         {
-            this.req = req;
-
-            req.BaseUrl(WebaoOps.GetUrl(typeof(WebaoDynCharacter)));
-            requestParameters = WebaoOps.GetParameters(typeof(WebaoCharacterDummy));
-
-            foreach (KeyValuePair<string, string> pair in requestParameters)
-            {
-                req.AddParameter(pair.Key, pair.Value);
-            }
+            base.SetUrl("https://anapioficeandfire.com/api/");
+            base.SetParameter("format", "json");
         }
 
         public Character GetCharacter(int id)
         {
-            string path = WebaoOps.GetQuery(typeof(WebaoDynCharacter), "GetCharacter");
+            string path = "characters/{id}";
             path = path.Replace("{id}", id.ToString());
 
-            MappingAttribute map = WebaoOps.GetMapping(typeof(WebaoDynCharacter), "GetCharacter");
-            string[] domains = map.path.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            Character character = (Character)base.GetRequest(path, typeof(Character));
 
-            object obj = req.Get(path, map.destType);
-
-            Type type = obj.GetType();
-            PropertyInfo propInfo;
-
-            object newObj = new object();
-            foreach (string domain in domains)
-            {
-                propInfo = type.GetProperty(domain);
-                newObj = propInfo.GetValue(obj);
-                type = newObj.GetType();
-                obj = newObj;
-            } 
-            return (Character)obj;
+            return character;
         }
 
         public List<Character> GetList()
-        {                       
-            string path = WebaoOps.GetQuery(typeof(WebaoDynCharacter), "GetList");
+        {
+            string path = "characters";
 
-            MappingAttribute map = WebaoOps.GetMapping(typeof(WebaoDynCharacter), "GetList");
-            string[] domains = map.path.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            DtoList dto = (DtoList)base.GetRequest(path, typeof(DtoList));
 
-            object obj = req.Get(path, map.destType);
-
-            Type type = obj.GetType();
-            PropertyInfo propInfo;
-
-            object newObj = new object();
-            foreach (string domain in domains)
-            {
-                propInfo = type.GetProperty(domain);
-                newObj = propInfo.GetValue(obj);
-                type = newObj.GetType();
-                obj = newObj;
-            }
-            return (List<Character>)obj;
+            return dto.Results.CharacterMatches.Character;
         }
     }
 }

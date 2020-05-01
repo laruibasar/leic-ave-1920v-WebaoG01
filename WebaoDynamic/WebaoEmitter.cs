@@ -83,34 +83,30 @@ namespace WebaoDynamic
                     * We have to deal with every strange method, so a switch can be
                     * the best option, with fallthrough for reduce clutter
                     */
+
+                String mappingPath = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name).Substring(1);
+                MethodInfo mii;
                 switch (metBuilder.Name)
                 { 
                     case "GetInfo":
-                        String s = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name).Substring(1);
-                        PropertyInfo pii = returnType.GetProperty(s);
-                        MethodInfo mii = pii.GetGetMethod();
+                        
+                        PropertyInfo pii = returnType.GetProperty(mappingPath);
+                        mii = pii.GetGetMethod();
                         il.EmitCall(OpCodes.Callvirt, mii, null);    
                         break;
 
                     case "Search":
-                        String s1 = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name).Substring(1);
 
-                        Type tii;
+                        Type tii = returnType; 
                         PropertyInfo prop;
-                        object newObj = new object();
-                        object obj = null; 
 
-                        string[] domains = s1.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                        string[] domains = mappingPath.Split(separator, StringSplitOptions.RemoveEmptyEntries);
                         foreach (string d in domains)
                         {
-                            prop = returnType.GetProperty(d);
-                            //newObj = prop.GetValue(obj); 
-                            //tii = newObj.GetType();  
-                            //obj = newObj;     
-
-                            //PropertyInfo pii1 = returnType.GetProperty(s1);
-                            //MethodInfo mii1 = pii1.GetGetMethod();
-                            //il.EmitCall(OpCodes.Callvirt, mii1, null);
+                            prop = tii.GetProperty(d);
+                            tii = prop.PropertyType;  
+                            mii = prop.GetGetMethod();
+                            il.EmitCall(OpCodes.Callvirt, mii, null);
                         }
                         break;
 

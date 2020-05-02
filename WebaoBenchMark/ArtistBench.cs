@@ -11,25 +11,28 @@ namespace WebaoBenchMark
 {
     class ArtistBench
     {
-		static readonly IWebaoArtist webaoArtistBuild = (IWebaoArtist)WebaoDynBuilder.Build(typeof(IWebaoArtist), new LastfmMockRequest());
-		static readonly IWebaoArtist webaoArtistEmmit = (IWebaoArtist)WebaoEmitter.ConstructorEmitter(typeof(IWebaoArtist), new LastfmMockRequest());
-		
-		public static Object testBuildArtistGetInfo()
+		static IWebaoArtist webaoArtistDyn = (IWebaoArtist)WebaoDynamic.WebaoDynBuilder.Build(typeof(IWebaoArtist), new LastfmMockRequest());
+		static WebaoArtist webaoArtistReflect = (WebaoArtist)WebaoBuilder.Build(typeof(WebaoArtist), new LastfmMockRequest());
+
+		public static Object testReflectArtistGetInfo()
 		{
-			return webaoArtistBuild.GetInfo("muse");
+			Artist artist = webaoArtistReflect.GetInfo("muse");
+			return artist;
 		}
-		public static Object testBuildArtistSearch()
+		public static Object testReflectArtistSearch()
 		{
-			return webaoArtistBuild.Search("black", 1);
+			List<Artist> artists = webaoArtistReflect.Search("black", 1);
+
+			return artists;
 		}
 
-		public static Object testEmmitArtistGetInfo()
+		public static Object testDynArtistGetInfo()
 		{
-			return webaoArtistEmmit.GetInfo("muse");
+			return webaoArtistDyn.GetInfo("muse");
 		}
-		public static Object testEmmitdArtistSearch()
+		public static Object testDyndArtistSearch()
 		{
-			return webaoArtistEmmit.Search("black", 1);
+			return webaoArtistDyn.Search("black", 1);
 		}
 
 		public static void Run()
@@ -39,10 +42,10 @@ namespace WebaoBenchMark
 			const long NUM_ITER = 10;
 
 //			NBench.Benchmark(new BenchmarkMethod(NBench.nullTest), "nullTest", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(ArtistBench.testBuildArtistGetInfo), "Build Artist GetInfo", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(ArtistBench.testEmmitArtistGetInfo), "Emmit Artist GetInfo", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(ArtistBench.testBuildArtistSearch), " Build Artist Search", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(ArtistBench.testBuildArtistSearch), "Emmit Artist Search", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(ArtistBench.testReflectArtistGetInfo), "Build Artist GetInfo", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(ArtistBench.testDynArtistGetInfo), "Emmit Artist GetInfo", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(ArtistBench.testReflectArtistSearch), " Build Artist Search", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(ArtistBench.testDyndArtistSearch), "Emmit Artist Search", ITER_TIME, NUM_WARMUP, NUM_ITER);
 
 		}
 	}

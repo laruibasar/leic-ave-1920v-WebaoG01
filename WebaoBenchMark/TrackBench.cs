@@ -11,19 +11,19 @@ namespace WebaoBenchMark
 {
     class TrackBench
 	{
-		static readonly IWebaoTrack webaoTrackBuild = (IWebaoTrack)WebaoDynBuilder.Build(typeof(IWebaoTrack), new MockRequest());
-		static readonly IWebaoTrack webaoTrackEmmit = (IWebaoTrack)WebaoEmitter.ConstructorEmitter(typeof(IWebaoTrack), new LastfmMockRequest());
+		static readonly IWebaoTrack webaoTrackDyn = (IWebaoTrack)WebaoDynBuilder.Build(typeof(IWebaoTrack), new MockRequest());
+		static readonly WebaoTrack webaoTrackReflect = (WebaoTrack)WebaoBuilder.Build(typeof(WebaoTrack), new LastfmMockRequest());
 
 
-		public static Object testBuildTrackGeoGetTopTracks()
+		public static Object testDynTrackGeoGetTopTracks()
 		{
-			return webaoTrackBuild.GeoGetTopTracks("australia");
+			return webaoTrackDyn.GeoGetTopTracks("australia");
 		}
 
 
-		public static Object testEmmitTrackGeoGetTopTracks()
+		public static Object testReflectTrackGeoGetTopTracks()
 		{
-			return webaoTrackEmmit.GeoGetTopTracks("australia");
+			return webaoTrackReflect.GeoGetTopTracks("australia");
 		}
 
 
@@ -34,8 +34,8 @@ namespace WebaoBenchMark
 			const long NUM_ITER = 10;
 
 			//			NBench.Benchmark(new BenchmarkMethod(NBench.nullTest), "nullTest", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(TrackBench.testBuildTrackGeoGetTopTracks), "testBuildTrackGeoGetTopTracks", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(TrackBench.testEmmitTrackGeoGetTopTracks), "testEmmitTrackGeoGetTopTracks", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(TrackBench.testReflectTrackGeoGetTopTracks), "testReflectTrackGeoGetTopTracks", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(TrackBench.testDynTrackGeoGetTopTracks), "testDynTrackGeoGetTopTracks", ITER_TIME, NUM_WARMUP, NUM_ITER);
 
 		}
 	}

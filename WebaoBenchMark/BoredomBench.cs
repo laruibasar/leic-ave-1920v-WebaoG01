@@ -11,25 +11,25 @@ namespace WebaoBenchMark
 {
     class BoredomBench
 	{
-		static readonly IWebaoBoredom webaoBoredomBuild = (IWebaoBoredom)WebaoDynBuilder.Build(typeof(IWebaoBoredom), new MockRequest());
-		static readonly IWebaoBoredom webaoBoredomEmmit = (IWebaoBoredom)WebaoEmitter.ConstructorEmitter(typeof(IWebaoBoredom), new LastfmMockRequest());
+		static readonly IWebaoBoredom webaoBoredomDyn = (IWebaoBoredom)WebaoDynBuilder.Build(typeof(IWebaoBoredom), new MockRequest());
+		static readonly WebaoBoredom boredomWebaoReflect = (WebaoBoredom)WebaoBuilder.Build(typeof(WebaoBoredom), new MockRequest());
 
-		public static Object testBuildBoredomGetActivityByKey()
+		public static Object testDynBoredomGetActivityByKey()
 		{
-			return webaoBoredomBuild.GetActivityByKey(5881028);
+			return webaoBoredomDyn.GetActivityByKey(5881028);
 		}
-		public static Object testBuildBoredomGetActivity()
+		public static Object testDynBoredomGetActivity()
 		{
-			return webaoBoredomBuild.GetActivity(1, 0.6f);
+			return webaoBoredomDyn.GetActivity(1, 0.6f);
 		}
 
-		public static Object testEmmitBoredomGetActivityByKey()
+		public static Object testReflectBoredomGetActivityByKey()
 		{
-			return webaoBoredomEmmit.GetActivityByKey(5881028);
+			return boredomWebaoReflect.GetActivityByKey(5881028);
 		}
-		public static Object testEmmitBoredomGetActivity()
+		public static Object testReflectBoredomGetActivity()
 		{
-			return webaoBoredomEmmit.GetActivity(1, 0.6f);
+			return boredomWebaoReflect.GetActivity(1, 0.6f);
 		}
 
 		public static void Run()
@@ -39,10 +39,10 @@ namespace WebaoBenchMark
 			const long NUM_ITER = 10;
 
 			//			NBench.Benchmark(new BenchmarkMethod(NBench.nullTest), "nullTest", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(BoredomBench.testBuildBoredomGetActivityByKey), "testBuildBoredomGetActivityByKey", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(BoredomBench.testEmmitBoredomGetActivityByKey), "testEmmitBoredomGetActivityByKey", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(BoredomBench.testBuildBoredomGetActivity), "testBuildBoredomGetActivity", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(BoredomBench.testEmmitBoredomGetActivity), "testEmmitBoredomGetActivity", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(BoredomBench.testReflectBoredomGetActivityByKey), "testReflectBoredomGetActivityByKey", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(BoredomBench.testDynBoredomGetActivityByKey), "testDynBoredomGetActivityByKey", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(BoredomBench.testReflectBoredomGetActivity), "testReflectBoredomGetActivity", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(BoredomBench.testDynBoredomGetActivity), "testDynBoredomGetActivity", ITER_TIME, NUM_WARMUP, NUM_ITER);
 
 		}
 	}

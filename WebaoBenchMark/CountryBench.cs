@@ -11,18 +11,18 @@ namespace WebaoBenchMark
 {
     class CountryBench
 	{
-		static readonly IWebaoCountry webaoCountryBuild = (IWebaoCountry)WebaoDynBuilder.Build(typeof(IWebaoCountry), new MockRequest());
-		static readonly IWebaoCountry webaoCountryEmmit = (IWebaoCountry)WebaoEmitter.ConstructorEmitter(typeof(IWebaoCountry), new LastfmMockRequest());
+		static readonly IWebaoCountry webaoCountryDyn = (IWebaoCountry)WebaoDynBuilder.Build(typeof(IWebaoCountry), new MockRequest());
+		static readonly WebaoCountry countryWebaoReflect = (WebaoCountry)WebaoBuilder.Build(typeof(WebaoCountry), new MockRequest());
 
-		public static Object testBuildCountryGetNationality()
+		public static Object testDynCountryGetNationality()
 		{
-			return webaoCountryBuild.GetNationality("luis");
+			return webaoCountryDyn.GetNationality("luis");
 		}
 		
 
-		public static Object testEmmitCountryGetNationality()
+		public static Object testReflectCountryGetNationality()
 		{
-			return webaoCountryEmmit.GetNationality("luis");
+			return countryWebaoReflect.GetNationality("luis");
 		}
 		
 
@@ -33,8 +33,8 @@ namespace WebaoBenchMark
 			const long NUM_ITER = 10;
 
 			//			NBench.Benchmark(new BenchmarkMethod(NBench.nullTest), "nullTest", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(CountryBench.testBuildCountryGetNationality), "testBuildCountryGetNationality", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(CountryBench.testEmmitCountryGetNationality), "testEmmitCountryGetNationality", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(CountryBench.testReflectCountryGetNationality), "testReflectCountryGetNationality", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(CountryBench.testDynCountryGetNationality), "testDynCountryGetNationality", ITER_TIME, NUM_WARMUP, NUM_ITER);
 
 
 		}

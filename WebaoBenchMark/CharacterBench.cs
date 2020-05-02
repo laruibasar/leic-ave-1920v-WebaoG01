@@ -11,16 +11,16 @@ namespace WebaoBenchMark
 {
     class CharacterBench
 	{
-		static readonly IWebaoCharacter webaoCharacterBuild = (IWebaoCharacter)WebaoDynBuilder.Build(typeof(IWebaoCharacter), new MockRequest());
-		static readonly IWebaoCharacter webaoCharacterEmmit = (IWebaoCharacter)WebaoEmitter.ConstructorEmitter(typeof(IWebaoCharacter), new LastfmMockRequest());
+		static readonly IWebaoCharacter webaoCharacterDyn = (IWebaoCharacter)WebaoDynBuilder.Build(typeof(IWebaoCharacter), new MockRequest());
+		static readonly WebaoCharacter characterWebaoReflect = (WebaoCharacter)WebaoBuilder.Build(typeof(WebaoCharacter), new MockRequest());
 
-		public static Object testBuildCharacterGetCharacter()
+		public static Object testDynCharacterGetCharacter()
 		{
-			return webaoCharacterBuild.GetCharacter(583);
+			return webaoCharacterDyn.GetCharacter(583);
 		}
-		public static Object testEmmitCharacterGetCharacter()
+		public static Object testReflectCharacterGetCharacter()
 		{
-			return webaoCharacterEmmit.GetCharacter(583);
+			return characterWebaoReflect.GetCharacter(583);
 		}
 
 
@@ -31,8 +31,8 @@ namespace WebaoBenchMark
 			const long NUM_ITER = 10;
 
 			//			NBench.Benchmark(new BenchmarkMethod(NBench.nullTest), "nullTest", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(CharacterBench.testBuildCharacterGetCharacter), "testBuildCharacterGetCharacter", ITER_TIME, NUM_WARMUP, NUM_ITER);
-			NBench.Benchmark(new BenchmarkMethod(CharacterBench.testEmmitCharacterGetCharacter), "testEmmitCharacterGetCharacter", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(CharacterBench.testReflectCharacterGetCharacter), "testReflectCharacterGetCharacter", ITER_TIME, NUM_WARMUP, NUM_ITER);
+			NBench.Benchmark(new BenchmarkMethod(CharacterBench.testDynCharacterGetCharacter), "testDynCharacterGetCharacter", ITER_TIME, NUM_WARMUP, NUM_ITER);
 	
 		}
 	}

@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebaoTestProject", "WebaoTe
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebaoDynamic", "WebaoDynamic\WebaoDynamic.shproj", "{98EFDD7F-0C2E-4FFF-829A-E6B30B4327BB}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebaoDynDummy", "WebaoDynDummy\WebaoDynDummy.shproj", "{EA268DF6-76B6-43FF-99E4-8ACE98922AAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebaoDynamics", "WebaoDynamics\WebaoDynamics.csproj", "{101AB08A-8C95-4F91-B1F1-AAB31AC6FD0D}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -31,6 +31,10 @@ Global
 		{929F21F8-10D8-4A70-B2DD-A8DAF4432727}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{929F21F8-10D8-4A70-B2DD-A8DAF4432727}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{929F21F8-10D8-4A70-B2DD-A8DAF4432727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{101AB08A-8C95-4F91-B1F1-AAB31AC6FD0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{101AB08A-8C95-4F91-B1F1-AAB31AC6FD0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{101AB08A-8C95-4F91-B1F1-AAB31AC6FD0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{101AB08A-8C95-4F91-B1F1-AAB31AC6FD0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

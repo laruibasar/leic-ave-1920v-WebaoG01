@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.12.0\build\NUnit.props')" />
-  <Import Project="..\WebaoDynDummy\WebaoDynDummy.projitems" Label="Shared" Condition="Exists('..\WebaoDynDummy\WebaoDynDummy.projitems')" />
-  <Import Project="..\WebaoDynamic\WebaoDynamic.projitems" Label="Shared" Condition="Exists('..\WebaoDynamic\WebaoDynamic.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -49,26 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessObjectTest.cs" />
-    <Compile Include="Dto\Artist.cs" />
-    <Compile Include="Dto\DtoArtist.cs" />
-    <Compile Include="Dto\DtoGeoTopTracks.cs" />
-    <Compile Include="Dto\DtoSearch.cs" />
-    <Compile Include="Dto\Statistics.cs" />
-    <Compile Include="Dto\Track.cs" />
     <Compile Include="HttpRequestTest.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebaoArtist.cs" />
     <Compile Include="WebaoTrack.cs" />
-    <Compile Include="Dto\Boredom.cs" />
-    <Compile Include="Dto\Country.cs" />
-    <Compile Include="Dto\DtoCountrySearch.cs" />
     <Compile Include="WebaoBoredom.cs" />
     <Compile Include="WebaoCountry.cs" />
     <Compile Include="WebaoCharacter.cs" />
-    <Compile Include="Dto\Character.cs" />
-    <Compile Include="Dto\DtoCharacter.cs" />
-    <Compile Include="Dto\DtoList.cs" />
     <Compile Include="LastfmMockRequest.cs" />
     <Compile Include="MockRequest.cs" />
     <Compile Include="WebaoDynamicTest.cs" />
@@ -77,6 +63,10 @@
     <ProjectReference Include="..\Webao\Webao.csproj">
       <Project>{98e66f08-5b55-4757-9f8d-ec1c7a38ff12}</Project>
       <Name>Webao</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebaoDynamics\WebaoDynamics.csproj">
+      <Project>{101AB08A-8C95-4F91-B1F1-AAB31AC6FD0D}</Project>
+      <Name>WebaoDynamics</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

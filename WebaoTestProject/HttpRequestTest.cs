@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Webao;
 using Webao.Base;
-using WebaoTestProject.Dto;
+using Webao.Dto;
 
 namespace WebaoTestProject
 {

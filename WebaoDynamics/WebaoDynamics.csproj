@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{101AB08A-8C95-4F91-B1F1-AAB31AC6FD0D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>WebaoDynamics</RootNamespace>
+    <AssemblyName>WebaoDynamics</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <ReleaseVersion>2</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Dummies\WebaoArtistDummy.cs" />
+    <Compile Include="Dummies\WebaoTrackDummy.cs" />
+    <Compile Include="Dummies\WebaoBoredomDummy.cs" />
+    <Compile Include="Dummies\WebaoCountryDummy.cs" />
+    <Compile Include="Dummies\WebaoCharacterDummy.cs" />
+    <Compile Include="Interfaces\IWebaoCharacter.cs" />
+    <Compile Include="Interfaces\IWebaoTrack.cs" />
+    <Compile Include="Interfaces\IWebaoBoredom.cs" />
+    <Compile Include="Interfaces\IWebaoArtist.cs" />
+    <Compile Include="Interfaces\IWebaoCountry.cs" />
+    <Compile Include="WebaoDyn.cs" />
+    <Compile Include="WebaoDynBuilder.cs" />
+    <Compile Include="WebaoOps.cs" />
+    <Compile Include="WebaoEmitter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dummies\" />
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Webao\Webao.csproj">
+      <Project>{98E66F08-5B55-4757-9F8D-EC1C7A38FF12}</Project>
+      <Name>Webao</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

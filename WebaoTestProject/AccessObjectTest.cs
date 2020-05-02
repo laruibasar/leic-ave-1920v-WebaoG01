@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Webao;
-using WebaoTestProject.Dto;
+using Webao.Dto;
 
 namespace WebaoTestProject
 {

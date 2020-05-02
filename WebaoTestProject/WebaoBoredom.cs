@@ -1,7 +1,7 @@
 ﻿using System;
 using Webao;
 using Webao.Attributes;
-using WebaoTestProject.Dto;
+using Webao.Dto;
 
 namespace WebaoTestProject
 {

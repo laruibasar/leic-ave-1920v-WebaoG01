@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Webao;
-using WebaoDynamic;
-using WebaoDynDummy;
-using WebaoTestProject.Dto;
+using Webao.Dto;
+using WebaoDynamics;
+using WebaoDynamics.Interfaces;
 
 namespace WebaoTestProject
 {

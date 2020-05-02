@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using Webao;
+using WebaoTestProject;
 using WebaoTestProject.Dto;
 
 namespace WebaoDynamic
@@ -148,6 +149,11 @@ namespace WebaoDynamic
             
             
             il.Emit(OpCodes.Ret);
+        }
+
+        public static object ConstructorEmitter(Type type, LastfmMockRequest lastfmMockRequest)
+        {
+            throw new NotImplementedException();
         }
 
         public static void ConstructorEmitter(ConstructorBuilder constBuilder, TypeInfo typeInfo)

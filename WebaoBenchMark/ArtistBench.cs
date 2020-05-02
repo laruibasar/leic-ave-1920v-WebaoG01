@@ -32,7 +32,7 @@ namespace WebaoBenchMark
 			return webaoArtistEmmit.Search("black", 1);
 		}
 
-		public static void Main()
+		public static void Run()
 		{
 			const long ITER_TIME = 1000;
 			const long NUM_WARMUP = 10;

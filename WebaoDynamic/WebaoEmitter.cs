@@ -142,7 +142,8 @@ namespace WebaoDynamic
                     
                     break;
                     default:
-                        break;
+                        il.Emit(OpCodes.Castclass, returnType);
+                    break;
                 }
             
             

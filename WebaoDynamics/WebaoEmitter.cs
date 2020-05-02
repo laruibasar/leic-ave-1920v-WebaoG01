@@ -82,13 +82,8 @@ namespace WebaoDynamics
 
             switch (metBuilder.Name)
             {
-                case "GetActivityByKey":
-                case "GetActivity":
-                    il.Emit(OpCodes.Castclass, callReturnType);
-                    break;
                 case "GetInfo":
                 case "Search":
-                case "GetCharacter":
                 case "GetList":
                 case "GetNationality":
                     il.Emit(OpCodes.Castclass, callReturnType);
@@ -117,6 +112,7 @@ namespace WebaoDynamics
                     il.EmitCall(OpCodes.Call, property.GetGetMethod(), null);
                     break;
                 default:
+                    il.Emit(OpCodes.Castclass, callReturnType);
                     break;
             }
  

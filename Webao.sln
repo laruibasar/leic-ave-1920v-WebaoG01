@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webao", "Webao\Webao.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebaoTestProject", "WebaoTestProject\WebaoTestProject.csproj", "{929F21F8-10D8-4A70-B2DD-A8DAF4432727}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebaoDynamic", "WebaoDynamic\WebaoDynamic.shproj", "{98EFDD7F-0C2E-4FFF-829A-E6B30B4327BB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebaoDynamics", "WebaoDynamics\WebaoDynamics.csproj", "{101AB08A-8C95-4F91-B1F1-AAB31AC6FD0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebaoBench", "WebaoBench\WebaoBench.csproj", "{2ECE8FB8-FC6A-48B3-B8CD-C03B189AA8B0}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -35,6 +35,10 @@ Global
 		{101AB08A-8C95-4F91-B1F1-AAB31AC6FD0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{101AB08A-8C95-4F91-B1F1-AAB31AC6FD0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{101AB08A-8C95-4F91-B1F1-AAB31AC6FD0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECE8FB8-FC6A-48B3-B8CD-C03B189AA8B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECE8FB8-FC6A-48B3-B8CD-C03B189AA8B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECE8FB8-FC6A-48B3-B8CD-C03B189AA8B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECE8FB8-FC6A-48B3-B8CD-C03B189AA8B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

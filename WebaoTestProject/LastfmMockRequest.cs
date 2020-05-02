@@ -5,7 +5,7 @@ using Webao.Dto;
 
 namespace WebaoTestProject
 {
-    internal class LastfmMockRequest : IRequest
+    public class LastfmMockRequest : IRequest
     {
         private Dictionary<string, object> lastFmObjects = new Dictionary<string, object>();
 

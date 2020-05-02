@@ -2,6 +2,3 @@
 Repositório do grupo G01
 
 Composto por:
-- A27969 - [Luís Bandarra](https://github.com/laruibasar)
-- A28093 - [António Pereira](https://github.com/ambccp)
-- A33685 - [Luis Gorett](https://github.com/gordett)

@@ -7,7 +7,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webao", "Webao\Webao.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebaoTestProject", "WebaoTestProject\WebaoTestProject.csproj", "{929F21F8-10D8-4A70-B2DD-A8DAF4432727}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebaoDynamic", "WebaoDynamic\WebaoDynamic.shproj", "{98EFDD7F-0C2E-4FFF-829A-E6B30B4327BB}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "WebaoDynDummy", "WebaoDynDummy\WebaoDynDummy.shproj", "{EA268DF6-76B6-43FF-99E4-8ACE98922AAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebaoBench2", "WebaoBench2\WebaoBench2.csproj", "{14A86785-EBA3-48BD-AFDE-A5A1F07C23C1}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		WebaoDynamic\WebaoDynamic.projitems*{929f21f8-10d8-4a70-b2dd-a8daf4432727}*SharedItemsImports = 4
+		WebaoDynDummy\WebaoDynDummy.projitems*{929f21f8-10d8-4a70-b2dd-a8daf4432727}*SharedItemsImports = 4
+		WebaoDynamic\WebaoDynamic.projitems*{98efdd7f-0c2e-4fff-829a-e6b30b4327bb}*SharedItemsImports = 13
+		WebaoDynDummy\WebaoDynDummy.projitems*{ea268df6-76b6-43ff-99e4-8ace98922aab}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -21,11 +33,23 @@ Global
 		{929F21F8-10D8-4A70-B2DD-A8DAF4432727}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{929F21F8-10D8-4A70-B2DD-A8DAF4432727}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{929F21F8-10D8-4A70-B2DD-A8DAF4432727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14A86785-EBA3-48BD-AFDE-A5A1F07C23C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14A86785-EBA3-48BD-AFDE-A5A1F07C23C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14A86785-EBA3-48BD-AFDE-A5A1F07C23C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14A86785-EBA3-48BD-AFDE-A5A1F07C23C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F118F28-468A-47EA-ABB7-3EEBBE787684}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$0.StandardHeader = $2
+		$0.VersionControlPolicy = $3
+		version = 2
 	EndGlobalSection
 EndGlobal

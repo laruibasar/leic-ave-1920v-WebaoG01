@@ -5,7 +5,7 @@ using WebaoTestProject.Dto;
 
 namespace WebaoTestProject
 {
-    internal class LastfmMockRequest : IRequest
+    public class LastfmMockRequest : IRequest
     {
         private Dictionary<string, object> lastFmObjects = new Dictionary<string, object>();
 
@@ -13,7 +13,8 @@ namespace WebaoTestProject
         {
             // Hard coded objects
             /* Test 1 */
-            DtoArtist dtoArtist = new DtoArtist();             dtoArtist.Artist = new Artist();
+            DtoArtist dtoArtist = new DtoArtist();
+            dtoArtist.Artist = new Artist();
             dtoArtist.Artist.Name = "Muse";
             dtoArtist.Artist.Mbid = "fd857293-5ab8-40de-b29e-55a69d4e4d0f";
             dtoArtist.Artist.Url = "https://www.last.fm/music/Muse";
@@ -44,6 +45,8 @@ namespace WebaoTestProject
             artist2.Url = "https://www.last.fm/music/Black+Eyed+Peas";
             dtoSearch.Results.ArtistMatches.Artist.Add(artist2);
             lastFmObjects.Add("?method=artist.search&artist=black", dtoSearch);
+            lastFmObjects.Add("?method=artist.search&artist=black&page=1", dtoSearch);
+
 
             /* Test 3 */
             DtoGeoTopTracks dtoGeoTopTracks = new DtoGeoTopTracks();
@@ -66,7 +69,18 @@ namespace WebaoTestProject
             lastFmObjects.Add("?method=geo.gettoptracks&country=australia", dtoGeoTopTracks);
         }
 
-        public IRequest AddParameter(string arg, string val)         {             return this;         }          public IRequest BaseUrl(string host)         {             return this;         }          public object Get(string path, Type targetType)         {
+        public IRequest AddParameter(string arg, string val)
+        {
+            return this;
+        }
+
+        public IRequest BaseUrl(string host)
+        {
+            return this;
+        }
+
+        public object Get(string path, Type targetType)
+        {
             if (lastFmObjects.TryGetValue(path, out object value))
             {
                 if (value.GetType() == targetType)
@@ -84,4 +98,4 @@ namespace WebaoTestProject
             }
         }
     }
-} 
+}

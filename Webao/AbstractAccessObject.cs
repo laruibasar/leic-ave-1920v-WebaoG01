@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using Webao.Attributes;
 using Webao.Base;
 
@@ -11,7 +10,6 @@ namespace Webao
     {
         private readonly IRequest req;
         private readonly char[] separator = new char[] { '.' };
-        private readonly Regex rgx = new Regex(@"\{[a-zA-Z0-9]*\}");
 
         protected AbstractAccessObject(IRequest req)
         {
@@ -39,9 +37,9 @@ namespace Webao
             string path = get.path;
             if (args.Length != 0)
             {
-                foreach (object arg in args)
+                foreach (ParameterInfo pi in callSite.GetParameters())
                 {
-                    path = rgx.Replace(path, arg.ToString());
+                    path = path.Replace("{" + pi.Name + "}", args[pi.Position].ToString());
                 }
             }
 
@@ -50,7 +48,7 @@ namespace Webao
             string[] domains = map.path.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             
             object obj = req.Get(path, map.destType);
-
+            
             /*
              * Get object from properties from response
              */

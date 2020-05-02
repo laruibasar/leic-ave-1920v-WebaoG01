@@ -20,6 +20,10 @@ namespace WebaoTestProject
 
         [Get("?method=artist.search&artist={name}")]
         [Mapping(typeof(DtoSearch), ".Results.ArtistMatches.Artist")]
-        public List<Artist> Search(string name) => (List<Artist>)Request(name);       
+        public List<Artist> Search(string name) => (List<Artist>)Request(name);
+
+        [Get("?method=artist.search&artist={name}&page={page}")]
+        [Mapping(typeof(DtoSearch), ".Results.ArtistMatches.Artist")]
+        public List<Artist> Search(string name, int page) => (List<Artist>)Request(name, page);
     }
 }

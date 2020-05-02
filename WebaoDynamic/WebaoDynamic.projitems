@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{98EFDD7F-0C2E-4FFF-829A-E6B30B4327BB}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>WebaoDynamic</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)IWebaoArtist.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebaoDynBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IWebaoCountry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IWebaoTrack.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebaoOps.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IWebaoBoredom.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IWebaoCharacter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebaoDyn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebaoEmitter.cs" />
+  </ItemGroup>
+</Project>

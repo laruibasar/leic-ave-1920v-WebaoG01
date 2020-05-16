@@ -11,9 +11,7 @@ namespace WebaoDynamic
         private delegate string WidthInvoker(string width);
 
         public static object Build(Type type, IRequest req)
-        {
-
-            
+        {           
 
             TypeInfo typeInfo = type.GetTypeInfo();
             string TheName = "Emit" + typeInfo.Name;

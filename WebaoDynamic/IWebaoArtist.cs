@@ -16,6 +16,7 @@ namespace WebaoDynamic
 
         [Get("?method=artist.search&artist={name}&page={page}")]
         [Mapping(typeof(DtoSearch), ".Results.ArtistMatches.Artist")]
+        //[Mapping(typeof(DtoSearch), Width = "DtoSearch.GetArtistsList")]
         List<Artist> Search(string name, int page);
     }
 }

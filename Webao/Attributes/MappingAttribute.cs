@@ -6,12 +6,19 @@ namespace Webao.Attributes
     public class MappingAttribute : Attribute
     {
         public readonly string path;
-        public readonly Type destType;
+        public readonly Type destType; 
 
         public MappingAttribute(Type dest, string path)
         {
             this.path = path;
             this.destType = dest;
         }
+
+        public MappingAttribute(Type dest)
+        {     
+            this.destType = dest;
+        }
+
+        //public string Width { get; set; }
     }
 }

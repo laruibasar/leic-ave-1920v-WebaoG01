@@ -4,11 +4,17 @@ using System.Reflection.Emit;
 using Webao;
 
 namespace WebaoDynamic
-{
-    public class WebaoDynBuilderGen
+{   
+
+    public class WebaoDynBuilder
     {
+        private delegate string WidthInvoker(string width);
+
         public static object Build(Type type, IRequest req)
         {
+
+            
+
             TypeInfo typeInfo = type.GetTypeInfo();
             string TheName = "Emit" + typeInfo.Name;
 
@@ -42,6 +48,24 @@ namespace WebaoDynamic
                     CallingConventions.Standard,
                     new Type[1] { typeof(IRequest) }
                 );
+
+
+            MethodInfo mInfo = typeInfo.GetMethod("MethodAZZZZ",
+                BindingFlags.Public | BindingFlags.Instance,
+                null,
+                CallingConventions.Any,
+                new Type[] {  },
+                null);
+
+            //Delegate d = Delegate.CreateDelegate(typeInfo, mInfo);
+
+            //WidthInvoker wi = (WidthInvoker)constBuilder.CreateDelegate(typeof(WidthInvoker));                                 
+            //string retval = d("DtoSearch.GetArtistsList");
+
+
+
+
+
             WebaoEmitter.ConstructorEmitter(constBuilder, typeInfo);
             
             MethodInfo[] methods = WebaoOps.GetMethods(type);

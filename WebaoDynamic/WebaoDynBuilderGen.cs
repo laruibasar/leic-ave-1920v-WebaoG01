@@ -10,6 +10,8 @@ namespace WebaoDynamic
     {
         private delegate string WidthInvoker(string width);
 
+        private static WidthInvoker retWidthProperty { get; set; }
+
         public static object Build(Type type, IRequest req)
         {           
 
@@ -48,6 +50,11 @@ namespace WebaoDynamic
                 );
 
 
+
+
+
+
+
             MethodInfo mInfo = typeInfo.GetMethod("MethodAZZZZ",
                 BindingFlags.Public | BindingFlags.Instance,
                 null,
@@ -55,10 +62,14 @@ namespace WebaoDynamic
                 new Type[] {  },
                 null);
 
-            //Delegate d = Delegate.CreateDelegate(typeInfo, mInfo);
-
+            Delegate d = Delegate.CreateDelegate(typeInfo, mInfo);
+            //retWidthProperty = d;
             //WidthInvoker wi = (WidthInvoker)constBuilder.CreateDelegate(typeof(WidthInvoker));                                 
             //string retval = d("DtoSearch.GetArtistsList");
+
+            //retWidthProperty();
+
+
 
 
 

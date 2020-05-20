@@ -5,7 +5,7 @@ using Webao;
 
 namespace WebaoDynamic
 {
-    public class WebaoDynBuilderGen
+    public class WebaoDynBuilder
     {
         public static object Build(Type type, IRequest req)
         {
@@ -14,7 +14,7 @@ namespace WebaoDynamic
 
             string ASM_NAME = TheName;
             string MOD_NAME = TheName;
-            string TYP_NAME = TheName;
+            string TYP_NAME = TheName; 
 
             string DLL_NAME = TheName + ".dll";
 

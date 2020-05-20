@@ -71,8 +71,8 @@
     <Compile Include="Dto\DtoList.cs" />
     <Compile Include="LastfmMockRequest.cs" />
     <Compile Include="MockRequest.cs" />
-    <Compile Include="WebaoDynamicTest.cs" />
-    <Compile Include="WebaoDynamicGenTest.cs" />
+    <Compile Include="WebaoDynamicTest2.cs" />
+    <Compile Include="WebaoDynamicTest3.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Webao\Webao.csproj">

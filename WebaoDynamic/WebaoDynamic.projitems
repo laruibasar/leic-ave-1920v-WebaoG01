@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IWebaoCharacter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoDyn.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoEmitter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WebaoDynBuilderGen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebaoDynBuilder3.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IWebaoArtist3.cs" />
   </ItemGroup>
 </Project>

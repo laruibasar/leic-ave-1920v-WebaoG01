@@ -96,7 +96,7 @@ namespace WebaoDynamic
                         methodParameters
                         );
 
-                WebaoEmitter.MethodEmitter(methodBuilder, typeInfo, parametersInfo);
+                WebaoEmitter.MethodEmitter3With(methodBuilder, typeInfo, parametersInfo);
             }
             Type webaoType = typBuilder.CreateTypeInfo().AsType();
 

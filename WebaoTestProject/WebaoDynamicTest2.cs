@@ -10,7 +10,7 @@ namespace WebaoTestProject
 {
     [TestFixture] 
     public class WebaoDynamicTest2
-    {
+    {  
         static readonly IWebaoArtist webaoArtist = (IWebaoArtist)WebaoDynBuilder.Build(typeof(IWebaoArtist), new HttpRequest());
         static readonly IWebaoArtist webaoArtistMock = (IWebaoArtist)WebaoDynBuilder.Build(typeof(IWebaoArtist), new LastfmMockRequest());
 

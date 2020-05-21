@@ -6,7 +6,9 @@ using WebaoTestProject.Dto;
 
 namespace WebaoDynDummy  
 {
-    public class WebaoArtistDummy3 : WebaoDyn, IWebaoArtist
+    public delegate List<Artist> MyDelegate();
+
+    public class WebaoArtistDummy3 : WebaoDyn, IWebaoArtist3
     {
         public WebaoArtistDummy3(IRequest req) : base(req)
         {
@@ -15,10 +17,7 @@ namespace WebaoDynDummy
             base.SetParameter("api_key", "a6c9a2229d0a79160dd93641841b0676");
         }
 
-        public Artist GetInfo(string name)
-        {
-            throw new NotImplementedException();
-        }
+    
 
         public List<Artist> Search(string name, int page)
         {
@@ -28,9 +27,10 @@ namespace WebaoDynDummy
 
             DtoSearch dto = (DtoSearch)base.GetRequest(path, typeof(DtoSearch));
 
-            return dto.Results.ArtistMatches.Artist;
-        }
+            MyDelegate myDelegate = dto.GetArtistsList;
 
-       
+            //return dto.Results.ArtistMatches.Artist;
+            return myDelegate();
+        }       
     }
 }

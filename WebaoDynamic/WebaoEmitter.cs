@@ -85,18 +85,35 @@ namespace WebaoDynamic
 
 
             //com with a partir daqui muda, o domain (path) está no with
+            string with = WebaoOps.GetMappingWith(typeInfo, metBuilder.Name);     
 
 
-
-            string domain = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name);
-            Type returnType = null;
-
-            domain = "." + WebaoOps.GetMappingType(typeInfo, metBuilder.Name).Name;
-            returnType = Type.GetType("WebaoTestProject.Dto" + domain);
+            Type typeDto = WebaoOps.GetMappingType(typeInfo, metBuilder.Name);
+            MethodInfo methodToDelegate = typeDto.GetMethod(with.Substring(with.LastIndexOf('.') + 1), BindingFlags.Public | BindingFlags.Instance);
 
 
 
 
+
+            DynamicMethod myDelegate = new DynamicMethod("MyDelegate", typeof(List<Artist>), new Type[] { });
+            //Delegate.CreateDelegate(typeof(List<Artist>), methodToDelegate);
+
+
+
+            //il.Emit(OpCodes.Callvirt, myDelegate.Invoke());
+
+
+
+
+            //string domain = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name);
+            //Type returnType = null; 
+
+            string domain = "." + WebaoOps.GetMappingType(typeInfo, metBuilder.Name).Name;
+            Type returnType = Type.GetType("WebaoTestProject.Dto" + domain);
+
+
+
+           
 
 
             /* treat .Tracks.track kind of domain

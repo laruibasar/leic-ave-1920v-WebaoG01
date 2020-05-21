@@ -19,7 +19,6 @@ namespace Webao.Attributes
             this.destType = dest;
         }
 
-
         public string With { get; set; }  
     }
 }

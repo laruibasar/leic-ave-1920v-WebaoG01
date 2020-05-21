@@ -61,11 +61,13 @@ namespace WebaoDynamic
             return map.destType;
         }
 
-        public static Type GetMappingWith()
+        public static string GetMappingWith(Type type, string method)
         {
-            throw new NotImplementedException();
+            TypeInformation typeInfo = TypeInfoCache.Get(type);
+            string n = method + typeof(MappingAttribute).FullName;
+            MappingAttribute map = (MappingAttribute)typeInfo[n][0];
+            return map.With;
         }
-
 
         public static MethodInfo[] GetMethods(Type type)
         {

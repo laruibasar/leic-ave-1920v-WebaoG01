@@ -82,96 +82,23 @@ namespace WebaoDynamic
             il.EmitCall(OpCodes.Call, callTypeOf, null);
             il.EmitCall(OpCodes.Call, baseGetRequest, null);
 
-
-
             //com with a partir daqui muda, o domain (path) está no with
             string with = WebaoOps.GetMappingWith(typeInfo, metBuilder.Name);     
-
 
             Type typeDto = WebaoOps.GetMappingType(typeInfo, metBuilder.Name);
             MethodInfo methodToDelegate = typeDto.GetMethod(with.Substring(with.LastIndexOf('.') + 1), BindingFlags.Public | BindingFlags.Instance);
 
+            //IL_0041: ldftn instance[mscorlib]System.Collections.Generic.List`1 <class WebaoTestProject.Dto.Artist> WebaoTestProject.Dto.DtoSearch::GetArtistsList()
+            //IL_0047:  newobj instance void WebaoDynDummy.MyDelegate::.ctor(object, native int)
+            //IL_004c:  callvirt instance[mscorlib]System.Collections.Generic.List`1<class WebaoTestProject.Dto.Artist> WebaoDynDummy.MyDelegate::Invoke()
+            //IL_0051:  ret
 
+            il.Emit(OpCodes.Ldfld, methodToDelegate);
+            ConstructorInfo ctor = typeof(Func<object>).GetConstructor(new Type[]{typeof(object), typeof(int)});
+            il.Emit(OpCodes.Newobj, ctor);  
 
-
-
-            DynamicMethod myDelegate = new DynamicMethod("MyDelegate", typeof(List<Artist>), new Type[] { });
-            //Delegate.CreateDelegate(typeof(List<Artist>), methodToDelegate);
-
-
-
-            //il.Emit(OpCodes.Callvirt, myDelegate.Invoke());
-
-
-
-
-            //string domain = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name);
-            //Type returnType = null; 
-
-            string domain = "." + WebaoOps.GetMappingType(typeInfo, metBuilder.Name).Name;
-            Type returnType = Type.GetType("WebaoTestProject.Dto" + domain);
-
-
-
-           
-
-
-            /* treat .Tracks.track kind of domain
-                * We have to deal with every strange method, so a switch can be
-                * the best option, with fallthrough for reduce clutter
-                */
-
-            String mappingPath = WebaoOps.GetMappingDomain(typeInfo, metBuilder.Name).Substring(1);
-            MethodInfo mii;
-            string[] domains = mappingPath.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-
-            switch (metBuilder.Name)
-            {
-                case "GetInfo":
-                case "Search":
-                case "GetNationality":
-                case "GetList":
-
-                    il.Emit(OpCodes.Castclass, returnType);
-
-                    //PropertyInfo pii = returnType.GetProperty(mappingPath);
-                    //mii = pii.GetGetMethod();
-                    //il.EmitCall(OpCodes.Callvirt, mii, null);    
-                    //break;                    
-
-                    Type tii = returnType;
-                    PropertyInfo prop;
-
-
-                    foreach (string d in domains)
-                    {
-                        prop = tii.GetProperty(d);
-                        tii = prop.PropertyType;
-                        mii = prop.GetGetMethod();
-                        il.EmitCall(OpCodes.Callvirt, mii, null);
-                    }
-                    break;
-
-
-                case "GeoGetTopTracks":
-
-                    il.Emit(OpCodes.Unbox_Any, returnType);
-                    il.Emit(OpCodes.Stloc_1);
-                    il.Emit(OpCodes.Ldloca_S, 1);
-                    il.Emit(OpCodes.Call, returnType.GetProperty(domains[0]).GetGetMethod());
-
-                    il.Emit(OpCodes.Stloc_2);
-                    il.Emit(OpCodes.Ldloca_S, 2);
-                    il.Emit(OpCodes.Call, returnType.GetProperty(domains[0]).PropertyType.GetProperty(domains[1]).GetGetMethod());
-
-                    break;
-                default:
-                    il.Emit(OpCodes.Castclass, returnType);
-                    break;
-            }
-
-
-            il.Emit(OpCodes.Ret);
+            il.Emit(OpCodes.Callvirt, typeof(Func<object>).GetMethod("Invoke"));
+            il.Emit(OpCodes.Ret); 
         }
 
         public static void MethodEmitter(

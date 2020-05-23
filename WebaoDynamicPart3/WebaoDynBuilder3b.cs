@@ -1,14 +1,62 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using Webao;
 
 namespace WebaoDynamic
-{   
-
-    public class WebaoDynBuilder3
+{
+    public class InfoMethod
     {
-        public static object Build(Type type, IRequest req)
+        public string method { get; set; }
+        public string query { get; set; }
+        public Type type { get; set; }
+        public Delegate Del { get; set; }
+    }
+
+    public class Context
+    {
+        Dictionary<string, string> dicParameters = new Dictionary<string, string>();
+        Dictionary<string, InfoMethod> dicMethods = new Dictionary<string, InfoMethod>();
+
+        InfoMethod infoMethod;
+
+        public Context AddParameter(string key, string value)
+        {
+            dicParameters.Add(key, value);
+            return this;
+        }
+
+        public Context On(string method)
+        {
+            infoMethod = new InfoMethod();
+            infoMethod.method = method;
+            return this;
+        }
+
+        public Context GetFrom(string query)
+        {
+            infoMethod.query = query;
+            return this;
+        }
+
+        public Context Mapping<T>(Func<T, object> func)
+        {
+            infoMethod.Del = func;
+            dicMethods.Add(infoMethod.method, infoMethod);
+            return this;
+        }       
+    }
+
+    public class WebaoDynBuilder3b
+    {
+        public static Context For<T>(String baseUrl)
+        {
+            Context context = new Context();
+            return context;
+        }
+
+        public static object Build3b(IRequest req)
         {           
             TypeInfo typeInfo = type.GetTypeInfo();
             string TheName = "Emit" + typeInfo.Name;

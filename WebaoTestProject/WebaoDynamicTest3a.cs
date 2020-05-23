@@ -9,7 +9,7 @@ using WebaoTestProject.Dto;
 namespace WebaoTestProject
 {
     [TestFixture]
-    public class WebaoDynamicTest3  
+    public class WebaoDynamicTest3a  
     {
         WebaoArtistDummy3 WebaoArtistDummy3 = new WebaoArtistDummy3(new HttpRequest());
 

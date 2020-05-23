@@ -93,10 +93,12 @@ namespace WebaoDynamic
             //IL_004c:  callvirt instance[mscorlib]System.Collections.Generic.List`1<class WebaoTestProject.Dto.Artist> WebaoDynDummy.MyDelegate::Invoke()
             //IL_0051:  ret
 
-            il.Emit(OpCodes.Ldfld, methodToDelegate);
-            ConstructorInfo ctor = typeof(Func<object>).GetConstructor(new Type[]{typeof(object), typeof(int)});
-            il.Emit(OpCodes.Newobj, ctor);  
+            
 
+            il.Emit(OpCodes.Ldftn, methodToDelegate);
+            ConstructorInfo ctor = typeof(Func<object>).GetConstructor(new Type[]{typeof(object), typeof(System.IntPtr) });          
+
+            il.Emit(OpCodes.Newobj, ctor);  
             il.Emit(OpCodes.Callvirt, typeof(Func<object>).GetMethod("Invoke"));
             il.Emit(OpCodes.Ret); 
         }

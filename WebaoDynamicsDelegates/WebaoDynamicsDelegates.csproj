@@ -30,8 +30,17 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebaoDyn.cs" />
+    <Compile Include="WebaoDynBuilder.cs" />
+    <Compile Include="WebaoEmitter.cs" />
+    <Compile Include="WebaoOps.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Webao\Webao.csproj">
+      <Project>{98E66F08-5B55-4757-9F8D-EC1C7A38FF12}</Project>
+      <Name>Webao</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

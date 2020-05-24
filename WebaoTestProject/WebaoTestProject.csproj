@@ -58,6 +58,7 @@
     <Compile Include="LastfmMockRequest.cs" />
     <Compile Include="MockRequest.cs" />
     <Compile Include="WebaoDynamicTest.cs" />
+    <Compile Include="WebaoDynDelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Webao\Webao.csproj">
@@ -67,6 +68,10 @@
     <ProjectReference Include="..\WebaoDynamics\WebaoDynamics.csproj">
       <Project>{101AB08A-8C95-4F91-B1F1-AAB31AC6FD0D}</Project>
       <Name>WebaoDynamics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebaoDynamicsDelegates\WebaoDynamicsDelegates.csproj">
+      <Project>{E40FECB8-92D9-406F-9692-63E18BD03FD1}</Project>
+      <Name>WebaoDynamicsDelegates</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

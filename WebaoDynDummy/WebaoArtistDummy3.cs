@@ -17,8 +17,6 @@ namespace WebaoDynDummy
             base.SetParameter("api_key", "a6c9a2229d0a79160dd93641841b0676");
         }
 
-    
-
         public List<Artist> Search(string name, int page)
         {
             string path = "?method=artist.getinfo&artist={name}";

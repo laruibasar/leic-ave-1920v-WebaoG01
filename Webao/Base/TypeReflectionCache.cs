@@ -65,10 +65,12 @@ namespace Webao.Base
             }
         }
 
+    
+
         /*
          * Common method to parse the attributes
          */
-        private void setAttributes(string prefix, Attribute[] attributes)
+        public void setAttributes(string prefix, Attribute[] attributes)
         {
             foreach (Attribute attribute in attributes)
             {

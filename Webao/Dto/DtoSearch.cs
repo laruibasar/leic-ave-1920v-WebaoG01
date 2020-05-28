@@ -5,6 +5,11 @@ namespace Webao.Dto
     public class DtoSearch
     {
         public DtoResults Results { get; set; }
+
+        public List<Artist> GetArtistList()
+        {
+            return this.Results.ArtistMatches.Artist;
+        }
     }
 
     public class DtoResults

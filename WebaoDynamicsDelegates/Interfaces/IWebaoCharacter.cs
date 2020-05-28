@@ -9,11 +9,11 @@ namespace WebaoDynamicsDelegates.Interfaces
     public interface IWebaoCharacter
     {
         [Get("characters/{id}")]
-        [Mapping(typeof(Character), ".")]
+        [Mapping(typeof(Character), With = "Webao.Dto.Character")]
         Character GetCharacter(int id);
 
         [Get("characters")]
-        [Mapping(typeof(DtoList), ".Results.CharacterMatches.Character")]
+        [Mapping(typeof(DtoList), With = "Webao.Dto.DtoList.GetListCharacters")]
         List<Character> GetList();
     }  
 }

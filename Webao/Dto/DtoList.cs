@@ -4,8 +4,12 @@ namespace Webao.Dto
 { 
     public class DtoList
     {
-        //public List<Character> Character { get; set; }
         public DtoListResults Results { get; set; }
+
+        public List<Character> GetListCharacters()
+        {
+            return this.Results.CharacterMatches.Character;
+        }
     }
 
     public class DtoListResults

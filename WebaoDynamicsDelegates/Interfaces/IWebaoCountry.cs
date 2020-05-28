@@ -9,7 +9,7 @@ namespace WebaoDynamicsDelegates.Interfaces
     public interface IWebaoCountry
     {
         [Get("?name={name}")]
-        [Mapping(typeof(DtoCountrySearch), ".Country")]
+        [Mapping(typeof(DtoCountrySearch), With = "Webao.Dto.Country")]
         List<Country> GetNationality(string name);
     }
 }

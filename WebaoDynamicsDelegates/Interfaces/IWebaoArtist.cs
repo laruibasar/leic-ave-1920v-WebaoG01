@@ -11,11 +11,11 @@ namespace WebaoDynamicsDelegates.Interfaces
     public interface IWebaoArtist
     {
         [Get("?method=artist.getinfo&artist={name}")]
-        [Mapping(typeof(DtoArtist), ".Artist")]
+        [Mapping(typeof(DtoArtist), With = "Webao.Dto.DtoArtist.Artist")]
         Artist GetInfo(string name);
 
         [Get("?method=artist.search&artist={name}&page={page}")]
-        [Mapping(typeof(DtoSearch), ".Results.ArtistMatches.Artist")]
+        [Mapping(typeof(DtoSearch), With = "Webao.Dto.DtoSearch.GetArtistsList")]
         List<Artist> Search(string name, int page);
     }
 }

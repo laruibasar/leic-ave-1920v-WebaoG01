@@ -11,7 +11,7 @@ namespace WebaoDynamicsDelegates.Interfaces
     public interface IWebaoTrack
     {
         [Get("?method=geo.gettoptracks&country={country}")]
-        [Mapping(typeof(DtoGeoTopTracks), ".Tracks.Track")]
+        [Mapping(typeof(DtoGeoTopTracks), With = "Webao.Dto.DtoGeoTopTracks.GetTracks")]
         List<Track> GeoGetTopTracks(string country);
     }
 }

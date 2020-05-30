@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Webao;
 using WebaoDynamic;
+using WebaoDynamicPart3;
 using WebaoTestProject.Dto;
 
 namespace WebaoTestProject
@@ -26,10 +28,9 @@ namespace WebaoTestProject
         [Test]
         public void TestWebaoArtistSearch()
         {
-            webaoArtist3b.Search("black", 1);
-            //List<Artist> artists = webaoArtist.Search("black", 1);
-            Assert.AreEqual(true, true);
-            //Assert.AreEqual("Black Eyed Peas", artists[2].Name);
+            List<Artist> artists = webaoArtist3b.Search("black", 1);
+            Assert.AreEqual("Black Sabbath", artists[1].Name);
+            Assert.AreEqual("Black Eyed Peas", artists[2].Name);
         }
 
         //static readonly IWebaoArtist3b webaoArtist = (IWebaoArtist3b)WebaoDynBuilder3b

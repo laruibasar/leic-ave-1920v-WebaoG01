@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using Webao;
@@ -51,7 +52,7 @@ namespace WebaoDynamicPart3
         {
             if (info != null)
             {
-                if (current == null)
+                if (current == null || current.methodReturnType!=null)
                 {
                     current = new InfoMethod(method);
                 }
@@ -77,12 +78,12 @@ namespace WebaoDynamicPart3
         {
             if (info != null)
             {
-                if (current != null && current.methodReturnType != null)
+                if (current != null && current.methodReturnType == null)
                 {
                     current.methodReturnType = typeof(T);
                     current.Del = func;
 
-                    info.list.Add(current);
+                    this.info.list.Add(current);
                 }
             }
 
@@ -131,37 +132,40 @@ namespace WebaoDynamicPart3
                     new Type[1] { typeof(IRequest) }
                 );
 
-            WebaoEmitter.ConstructorEmitter(constBuilder, typeInfo);
+            WebaoEmitter3b.ConstructorEmitter(constBuilder, info);
 
             /*
-             * Refazer esta parte toda
+             * Refazer esta parte toda 
              * NOTA: que temos de identificar os parametros dos metodos
              * atraves do conjunto de chavetas {page}
              */
 
-            foreach(InfoMethod method in info.list)
+            MethodInfo[] methods = WebaoOps.GetMethods(type);
+            foreach (MethodInfo method in methods)
             {
-                Type[] methodParameters = new Type[method.GetNumberParameters()];
-
-                for (int idx = 0; idx < method.GetNumberParameters(); idx++)
+                ParameterInfo[] parametersInfo = method.GetParameters();
+                Type[] methodParameters = new Type[parametersInfo.Length];
+                int idx = 0;
+                foreach (ParameterInfo parameterInfo in parametersInfo)
                 {
-                    methodParameters[idx] = typeof(String);
+                    methodParameters[idx++] = parameterInfo.ParameterType;
                 }
 
                 MethodBuilder methodBuilder =
                     typBuilder.DefineMethod(
-                        method.name,
+                        method.Name,
                         MethodAttributes.Public |
                         MethodAttributes.Virtual |
                         MethodAttributes.NewSlot |
                         MethodAttributes.Final,
-                        method.methodReturnType,
+                        method.ReturnType,
                         methodParameters
                         );
 
-                WebaoEmitter.MethodEmitter3With(methodBuilder, typeInfo, parametersInfo);
-            }
+                InfoMethod im = info.list.Where(item => item.name== method.Name).FirstOrDefault();
 
+                WebaoEmitter3b.MethodEmitter3b(methodBuilder, typeInfo, parametersInfo, im);
+            }
             Type webaoType = typBuilder.CreateTypeInfo().AsType();
 
             asmBuilder.Save(DLL_NAME);

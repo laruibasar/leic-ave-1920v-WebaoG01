@@ -85,7 +85,34 @@ namespace WebaoDynamicPart3
             il.EmitCall(OpCodes.Call, callTypeOf, null);
             il.EmitCall(OpCodes.Call, baseGetRequest, null);
 
-          
+
+        //    IL_007d: stloc.0
+        //    IL_007e: ldarg.0
+        //    IL_007f: call instance[mscorlib]System.Delegate WebaoDynDummy.WebaoArtistDummy3b::get_Del()
+        //    IL_0084: ldc.i4.1
+        //    IL_0085: newarr[mscorlib]System.Object
+        //    IL_008a:  dup    
+        //    IL_008b:  ldc.i4.0
+        //    IL_008c: ldloc.0
+        //    IL_008d: stelem.ref
+        //    IL_008e:  callvirt instance object[mscorlib] System.Delegate::DynamicInvoke(object[])
+        //    IL_0093: castclass[mscorlib]System.Collections.Generic.List`1 <[WebaoTestProject]WebaoTestProject.Dto.Artist >
+        //    IL_0098:  ret
+
+
+//    IL_0061: ldc.i4.1
+//    IL_0062: newarr[mscorlib]System.Object
+//    IL_0067:  dup
+//    IL_0068:  ldc.i4.0
+//    IL_0069: ldloc.1
+//    IL_006a: stelem.ref
+//    IL_006b:  callvirt instance object[mscorlib] System.Delegate::DynamicInvoke(object[])
+//    IL_0070: castclass[mscorlib]System.Collections.Generic.List`1 <[WebaoTestProject]WebaoTestProject.Dto.Artist >
+//    IL_0075:  ret
+
+
+
+
 
             il.Emit(OpCodes.Ldftn, infoMethod.Del.GetMethodInfo());
             ConstructorInfo ctor = typeof(Func<object>).GetConstructor(new Type[] { typeof(object), typeof(System.IntPtr) });

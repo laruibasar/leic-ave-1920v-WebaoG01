@@ -31,6 +31,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="InfoMethod.cs" />
     <Compile Include="WebaoEmitter3b.cs" />
+    <Compile Include="WebaoArtistDummy3b.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Webao\Webao.csproj">

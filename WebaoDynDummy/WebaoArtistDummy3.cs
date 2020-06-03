@@ -26,10 +26,10 @@ namespace WebaoDynDummy
             DtoSearch dto = (DtoSearch)base.GetRequest(path, typeof(DtoSearch)); 
 
             MyDelegate myDelegate = dto.GetArtistsList;
-            Func<List<Artist>> myDelegate2 = dto.GetArtistsList;
+            //Func<List<Artist>> myDelegate2 = dto.GetArtistsList;
 
             //return dto.Results.ArtistMatches.Artist;
             return myDelegate();
         }       
     }
-}
+} 

@@ -17,6 +17,19 @@ namespace WebaoDynDummy
 			base.SetParameter("api_key", "a6c9a2229d0a79160dd93641841b0676");
 		}
 
+		public Artist GetInfo(string name)
+		{
+			string path = "?method=artist.getinfo&artist={name}";
+			path = path.Replace("{name}", name.ToString());
+
+			DtoArtist results = (DtoArtist)base.GetRequest(path, typeof(DtoArtist));
+			Func<DtoArtist, Artist> Del = dto => dto.Artist;
+
+			Artist artist = (Artist)Del.DynamicInvoke(results);
+
+			return artist;
+		}
+
 		public List<Artist> Search(string name, int page)
 		{
 			string path = "?method=artist.getinfo&artist={name}";
@@ -27,9 +40,9 @@ namespace WebaoDynDummy
 			
 			Func<DtoSearch, List<Artist>> Del = dto => dto.Results.ArtistMatches.Artist; 
 			
-			List<Artist> listB = (List<Artist>)Del.DynamicInvoke(results);
+			List<Artist> list = (List<Artist>)Del.DynamicInvoke(results);
 
-			return listB;
+			return list;
 		}
 	}
 }

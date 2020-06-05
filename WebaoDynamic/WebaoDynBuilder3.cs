@@ -28,7 +28,7 @@ namespace WebaoDynamic
 
             // Define module in assembly
             ModuleBuilder modBuilder =
-                asmBuilder.DefineDynamicModule(MOD_NAME, DLL_NAME);
+                asmBuilder.DefineDynamicModule(MOD_NAME, DLL_NAME, true);
 
             // Define type in module
             TypeBuilder typBuilder =

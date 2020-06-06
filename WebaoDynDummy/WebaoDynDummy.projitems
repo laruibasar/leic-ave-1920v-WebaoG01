@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)WebaoTrackDummy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoArtistDummy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoCharacterDummy.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WebaoArtistDummy3.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebaoArtistDummy3A.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebaoTrackDummy3A.cs" />
   </ItemGroup>
 </Project>

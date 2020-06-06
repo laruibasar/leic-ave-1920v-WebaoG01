@@ -18,13 +18,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)IWebaoCharacter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoDyn.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoEmitter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WebaoDynBuilder3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IWebaoArtist3A.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IWebaoTrack3A.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Part3\ServiceTracks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Part3\ServiceArtists.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Part3\ServiceCharacters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Part3\ServiceCountries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IWebaoCharacter3A.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Part3\" />

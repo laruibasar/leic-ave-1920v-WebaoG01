@@ -6,6 +6,8 @@ namespace WebaoTestProject.Dto
     {
         //public List<Character> Character { get; set; }
         public DtoListResults Results { get; set; }
+        public List<Character> GetCharacters()
+        { return this.Results.CharacterMatches.Character;  }
     }
 
     public class DtoListResults

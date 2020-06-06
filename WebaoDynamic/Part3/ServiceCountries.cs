@@ -12,14 +12,16 @@ namespace WebaoDynamic.Part3
 {
     class ServiceCountries : AbstractAccessObject
     {
-        private readonly WebaoCountry webao;
+        private readonly IWebaoCountry webao;
         public ServiceCountries() : this(new HttpRequest())
         {
         }
-        public ServiceCountries(IRequest req) : base(req) { }
+        public ServiceCountries(IRequest req) : base(req) {
+            webao = (IWebaoCountry)WebaoDynBuilder.Build(typeof(IWebaoCountry), req);
+        }
         public IEnumerable<Country> GetNationality(string name)
         {
-            List<Country> list = (List<Country>)Request(name);
+            List<Country> list = webao.GetNationality(name);
             foreach (Country item in list){
                 yield return item;
             }

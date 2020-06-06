@@ -9,16 +9,18 @@ using WebaoTestProject.Dto;
 
 namespace WebaoDynamic.Part3
 {
-    class ServiceCharacters : AbstractAccessObject
+    class ServiceCharacters 
     {
-        private readonly WebaoCharacter webao;
+        private readonly IWebaoCharacter webao;
         public ServiceCharacters() : this(new HttpRequest())
         {
         }
-        public ServiceCharacters(IRequest req) :base(req) { }
+        public ServiceCharacters(IRequest req) {
+            webao = (IWebaoCharacter)WebaoDynBuilder.Build(typeof(IWebaoCharacter), req);
+        }
         public IEnumerable<Character> GetList()
         {
-            List<Character> list = (List<Character>)Request();
+            List<Character> list = webao.GetList();
             foreach (Character item in list)
             {
                 yield return item;

@@ -11,7 +11,7 @@ namespace WebaoDynamic
     public interface IWebaoArtist3
     {
         [Get("?method=artist.getinfo&artist={name}")]
-        [Mapping(typeof(DtoArtist), With = "WebaoTestProject.Dto.Artist")]
+        [Mapping(typeof(DtoArtist), With = "WebaoTestProject.Dto.GetArtist")]
         Artist GetInfo(string name);
 
         [Get("?method=artist.search&artist={name}&page={page}")]

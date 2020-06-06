@@ -5,7 +5,6 @@ using Webao;
 
 namespace WebaoDynamic
 {   
-
     public class WebaoDynBuilder3
     {
         public static object Build(Type type, IRequest req)
@@ -68,7 +67,7 @@ namespace WebaoDynamic
                         methodParameters
                         );
 
-                WebaoEmitter.MethodEmitter3With(methodBuilder, typeInfo, parametersInfo);
+                WebaoEmitter.MethodEmitter(methodBuilder, typeInfo, parametersInfo);
             }
             Type webaoType = typBuilder.CreateTypeInfo().AsType();
 

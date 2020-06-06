@@ -81,44 +81,35 @@ namespace WebaoDynamicPart3
             il.Emit(OpCodes.Stloc_0);
             il.Emit(OpCodes.Ldarg_0);
             il.Emit(OpCodes.Ldloc_0);
-            il.Emit(OpCodes.Ldtoken, infoMethod.methodReturnType);
+            il.Emit(OpCodes.Ldtoken, infoMethod.methodReturnType.GetType());
             il.EmitCall(OpCodes.Call, callTypeOf, null);
             il.EmitCall(OpCodes.Call, baseGetRequest, null);
 
+            /*
+            IL_0033:  ldfld      class WebaoDynamicPart3.InfoMethod WebaoDynamicPart3.Context::current
+            IL_0038:  callvirt instance [mscorlib] System.Delegate WebaoDynamicPart3.InfoMethod::get_Del()*/
+            il.Emit(OpCodes.Ldfld, typeof(InfoMethod));
+            il.Emit(OpCodes.Callvirt, infoMethod.GetType().GetProperty("Del").GetGetMethod());
 
-        //    IL_007d: stloc.0
-        //    IL_007e: ldarg.0
-        //    IL_007f: call instance[mscorlib]System.Delegate WebaoDynDummy.WebaoArtistDummy3b::get_Del()
-        //    IL_0084: ldc.i4.1
-        //    IL_0085: newarr[mscorlib]System.Object
-        //    IL_008a:  dup    
-        //    IL_008b:  ldc.i4.0
-        //    IL_008c: ldloc.0
-        //    IL_008d: stelem.ref
-        //    IL_008e:  callvirt instance object[mscorlib] System.Delegate::DynamicInvoke(object[])
-        //    IL_0093: castclass[mscorlib]System.Collections.Generic.List`1 <[WebaoTestProject]WebaoTestProject.Dto.Artist >
-        //    IL_0098:  ret
-
-
-//    IL_0061: ldc.i4.1
-//    IL_0062: newarr[mscorlib]System.Object
-//    IL_0067:  dup
-//    IL_0068:  ldc.i4.0
-//    IL_0069: ldloc.1
-//    IL_006a: stelem.ref
-//    IL_006b:  callvirt instance object[mscorlib] System.Delegate::DynamicInvoke(object[])
-//    IL_0070: castclass[mscorlib]System.Collections.Generic.List`1 <[WebaoTestProject]WebaoTestProject.Dto.Artist >
-//    IL_0075:  ret
+            /*
+            IL_003d:  ldc.i4.1
+            IL_003e:  newarr[mscorlib] System.Object
+            IL_0044:  ldc.i4.0
+            IL_0045:  ldloc.0
+            IL_0046:  stelem.ref*/
+            il.Emit(OpCodes.Ldc_I4_1);
+            il.Emit(OpCodes.Newarr, typeof(Object));
+            il.Emit(OpCodes.Ldc_I4_0);
+            il.Emit(OpCodes.Ldloc_0);
+            il.Emit(OpCodes.Stelem_Ref);
 
 
+            //IL_0047:  callvirt instance object[mscorlib] System.Delegate::DynamicInvoke(object[])
+            il.Emit(OpCodes.Callvirt, typeof(Delegate).GetMethod("DynamicInvoke"));
 
+            //IL_004c:  castclass[mscorlib] System.Collections.Generic.List`1<[WebaoTestProject] WebaoTestProject.Dto.Artist>
+            il.Emit(OpCodes.Castclass, infoMethod.methodReturnType.GetType());
 
-
-            il.Emit(OpCodes.Ldftn, infoMethod.Del.GetMethodInfo());
-            ConstructorInfo ctor = typeof(Func<object>).GetConstructor(new Type[] { typeof(object), typeof(System.IntPtr) });
-
-            il.Emit(OpCodes.Newobj, ctor);
-            il.Emit(OpCodes.Callvirt, typeof(Func<object>).GetMethod("DynamicInvoke"));
             il.Emit(OpCodes.Ret);
         }
 

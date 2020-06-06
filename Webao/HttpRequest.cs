@@ -41,7 +41,7 @@ namespace Webao
         }
         public object Get(string path, Type targetType)
         {
-
+            path = path.Replace(",", ".");
             /*
              * You should avoid blocking IO such as waiting for Result completion.
              * More about this topic on Concurrent Programming course!

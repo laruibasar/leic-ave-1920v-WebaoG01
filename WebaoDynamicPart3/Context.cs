@@ -4,8 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using Webao;
-using Webao.Attributes;
 using WebaoDynamic;
+using WebaoTestProject.Dto;
 
 namespace WebaoDynamicPart3
 {
@@ -87,6 +87,44 @@ namespace WebaoDynamicPart3
                 }
             }
 
+            return this;
+        }
+
+        public Context DummyDel()
+        {
+            DtoResults results = new DtoResults
+            {
+                ArtistMatches = new DtoArtistMatches
+                {
+                    Artist = new List<Artist>() { new Artist { Name = "xpto artist" } }
+                }
+            };
+            
+            List<Artist> list = (List<Artist>)current.Del.DynamicInvoke(results);
+            /*
+               IL_0033: ldfld      class WebaoDynamicPart3.InfoMethod WebaoDynamicPart3.Context::current
+
+               IL_0038:  callvirt instance [mscorlib] System.Delegate WebaoDynamicPart3.InfoMethod::get_Del()
+               IL_003d:  ldc.i4.1
+
+               IL_003e:  newarr[mscorlib] System.Object
+               IL_0044:  ldc.i4.0
+               IL_0045:  ldloc.0
+
+               IL_0046:  stelem.ref
+               IL_0047:  callvirt instance object[mscorlib] System.Delegate::DynamicInvoke(object[])
+               IL_004c:  castclass[mscorlib] System.Collections.Generic.List`1<[WebaoTestProject] WebaoTestProject.Dto.Artist>
+            */
+
+            Console.WriteLine(list[0].Name);
+            /*
+               IL_0051:  ldc.i4.0
+
+               IL_0052:  callvirt instance !0 [mscorlib] System.Collections.Generic.List`1<[WebaoTestProject] WebaoTestProject.Dto.Artist>::get_Item(int32)
+               IL_0057:  callvirt instance string[WebaoTestProject] WebaoTestProject.Dto.Artist::get_Name()
+               IL_005c:  call       void[mscorlib] System.Console::WriteLine(string)
+               IL_0061:  ldarg.0
+            */
             return this;
         }
 

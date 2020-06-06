@@ -8,10 +8,10 @@ namespace WebaoDynamic
     [BaseUrl("http://ws.audioscrobbler.com/2.0/")]
     [AddParameter("format", "json")]
     [AddParameter("api_key", LastFmAPI.API_KEY)]
-    public interface IWebaoArtist3
+    public interface IWebaoArtist3A
     {
         [Get("?method=artist.getinfo&artist={name}")]
-        [Mapping(typeof(DtoArtist), With = "WebaoTestProject.Dto.Artist")]
+        [Mapping(typeof(DtoArtist), With = "WebaoTestProject.Dto.GetArtist")]
         Artist GetInfo(string name);
 
         [Get("?method=artist.search&artist={name}&page={page}")]

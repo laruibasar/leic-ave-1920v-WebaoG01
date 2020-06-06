@@ -9,9 +9,9 @@ namespace WebaoDynDummy
     public delegate Artist MyArtistDelegate();
     public delegate List<Artist> MyListDelegate();
 
-    public class WebaoArtistDummy3 : WebaoDyn, IWebaoArtist3
+    public class WebaoArtistDummy3A : WebaoDyn, IWebaoArtist3A
     {
-        public WebaoArtistDummy3(IRequest req) : base(req)
+        public WebaoArtistDummy3A(IRequest req) : base(req)
         {
             base.SetUrl("http://ws.audioscrobbler.com/2.0/");
             base.SetParameter("format", "json");

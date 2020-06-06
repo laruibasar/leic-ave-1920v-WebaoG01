@@ -10,6 +10,9 @@ namespace WebaoTestProject
         // format <string query, object testObject>
         private Dictionary<string, object> mockRequest = new Dictionary<string, object>();
 
+        public int Page { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Limit { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public MockRequest()
         {
             Boredom boredom = new Boredom();

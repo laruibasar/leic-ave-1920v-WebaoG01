@@ -7,7 +7,7 @@ using Webao;
 using WebaoTestProject;
 using WebaoTestProject.Dto;
 
-namespace WebaoDynamicPart3
+namespace WebaoDynamic.Part3
 {
     class ServiceCharacters : AbstractAccessObject
     {

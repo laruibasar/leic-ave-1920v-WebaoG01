@@ -69,6 +69,9 @@ namespace WebaoTestProject
             lastFmObjects.Add("?method=geo.gettoptracks&country=australia", dtoGeoTopTracks);
         }
 
+        public int Page { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Limit { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public IRequest AddParameter(string arg, string val)
         {
             return this;
@@ -97,5 +100,6 @@ namespace WebaoTestProject
                 return new object();
             }
         }
+
     }
 }

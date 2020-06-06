@@ -58,6 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\LastFmAPI.cs" />
     <Compile Include="Base\TypeReflectionCache.cs" />
+    <Compile Include="HttpRequestLazy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

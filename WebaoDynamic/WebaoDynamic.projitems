@@ -20,5 +20,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)WebaoEmitter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebaoDynBuilder3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IWebaoArtist3.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Part3\ServiceTracks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Part3\ServiceArtists.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Part3\ServiceCharacters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Part3\ServiceCountries.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Part3\" />
   </ItemGroup>
 </Project>

@@ -15,6 +15,9 @@ namespace Webao
         private readonly Dictionary<string, string> queryParameters = new Dictionary<string, string>();
         private string host;
 
+        public virtual int Page { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public virtual int Limit { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public IRequest BaseUrl(string host) {
             this.host = host;
             return this;

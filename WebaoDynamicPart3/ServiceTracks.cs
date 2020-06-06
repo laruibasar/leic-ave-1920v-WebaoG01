@@ -4,20 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Webao;
+using Webao.Base;
+using WebaoDynamic;
 using WebaoTestProject;
 using WebaoTestProject.Dto;
 
 namespace WebaoDynamicPart3
 {
-    class ServiceTracks  : AbstractAccessObject
+    public class ServiceTracks 
     {
         private readonly WebaoTrack webao;
-        public ServiceTracks() : this(new HttpRequest()) { 
-
+        private static int elemCount;
+        public ServiceTracks() : this(new HttpRequestLazy()) { }
+        
+        public ServiceTracks(IRequest req)  {
+  //          req.BaseUrl("http://ws.audioscrobbler.com/2.0/");
+  //          req.AddParameter("format", "json");
+  //          req.AddParameter("api_key", LastFmAPI.API_KEY);
+            webao = (WebaoTrack)WebaoDynBuilder.Build(typeof(WebaoTrack), req);
         }
-        public ServiceTracks(IRequest req) : base(req) { }
+
         public IEnumerable<Track> TopTracksFrom(string country) {
-           List<Track> list = (List<Track>)Request(country);
+            List<Track> list = webao.GeoGetTopTracks(country);
+           
             foreach (Track item in list)
             {
                 yield return item;

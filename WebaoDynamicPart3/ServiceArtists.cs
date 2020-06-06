@@ -12,7 +12,7 @@ namespace WebaoDynamicPart3
     class ServiceArtists : AbstractAccessObject
     {
         private readonly WebaoArtist webao;
-        public ServiceArtists() : this(new HttpRequest())
+        public ServiceArtists() : this(new HttpRequestLazy())
         {
         }
         public ServiceArtists(IRequest req) :base(req) { }

@@ -13,13 +13,14 @@ namespace WebaoDynamic.Part3
 {
     public class ServiceTracks 
     {
-        private readonly WebaoTrack webao;
+        private readonly IWebaoTrack webao;
         private int elemCount;
 
         public ServiceTracks() : this(new HttpRequestLazy()) { }
         
         public ServiceTracks(IRequest req)  {
-            webao = (WebaoTrack)WebaoDynBuilder.Build(typeof(WebaoTrack), req);
+            //webao = (WebaoTrack)WebaoBuilder.Build(typeof(WebaoTrack), req);
+            webao = (IWebaoTrack)WebaoDynBuilder.Build(typeof(IWebaoTrack), req);
         }
 
         public IEnumerable<Track> TopTracksFrom(string country) {

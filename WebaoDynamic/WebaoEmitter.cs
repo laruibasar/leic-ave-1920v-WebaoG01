@@ -167,17 +167,30 @@ namespace WebaoDynamic
             //    IL_0000:  ldtoken WebaoTestProject.WebaoArtist
             il.Emit(OpCodes.Ldtoken, typeInfo);
             //    IL_0005:  call[mscorlib] System.Type[mscorlib] System.Type::GetTypeFromHandle([mscorlib] System.RuntimeTypeHandle)
-            il.EmitCall(OpCodes.Call,
-                typeof(Type).GetMethod("GetTypeFromHandle", new Type[] { typeof(RuntimeTypeHandle) }),
-                null);
+            il.Emit(OpCodes.Call,
+                typeof(Type).GetMethod("GetTypeFromHandle", new Type[] { typeof(RuntimeTypeHandle) }));
             //    IL_000a:  call class WebaoDynamic.TP3Fluent.Context WebaoDynamic.TP3Fluent.ContextCache::Get([mscorlib] System.Type)
-            il.EmitCall(OpCodes.Call, typeof(ContextCache).GetMethod("Get", new Type[] { typeof(Type) }), null);
+            il.Emit(OpCodes.Call, typeof(ContextCache).GetMethod("Get", new Type[] { typeof(Type) }));
+            // Failed generated from here:
+//Unhandled Exception:
+//System.ArgumentOutOfRangeException: Token 0x0100000b is not valid in the scope of module Dummy.
+//Parameter name: metadataToken
+//  at IKVM.Reflection.Reader.ModuleReader.ResolveField(System.Int32 metadataToken, IKVM.Reflection.Type[] genericTypeArguments, IKVM.Reflection.Type[] genericMethodArguments)[0x0008c] in < 563ef0f89b9a4a28a403624fc051b175 >:0
+//  at Ildasm.Disassembler.ResolveField(System.Int32 token, IKVM.Reflection.Type[] genericTypeArguments, IKVM.Reflection.Type[] genericMethodArguments)[0x00000] in < 563ef0f89b9a4a28a403624fc051b175 >:0
+//  at Ildasm.Disassembler.WriteIL(Ildasm.LineWriter lw, IKVM.Reflection.MethodBase mb, IKVM.Reflection.MethodBody body, IKVM.Reflection.Type[] genericTypeArguments, IKVM.Reflection.Type[] genericMethodArguments)[0x005be] in < 563ef0f89b9a4a28a403624fc051b175 >:0
+//  at Ildasm.Disassembler.WriteMethod(Ildasm.LineWriter lw, IKVM.Reflection.MethodBase method)[0x007bb] in < 563ef0f89b9a4a28a403624fc051b175 >:0
+//  at Ildasm.Disassembler.WriteType(Ildasm.LineWriter lw, IKVM.Reflection.Type type)[0x004a8] in < 563ef0f89b9a4a28a403624fc051b175 >:0
+//  at Ildasm.Disassembler.WriteTypes(Ildasm.LineWriter lw)[0x00039] in < 563ef0f89b9a4a28a403624fc051b175 >:0
+//  at Ildasm.Disassembler.Save(System.IO.TextWriter writer)[0x00082] in < 563ef0f89b9a4a28a403624fc051b175 >:0
+//  at Ildasm.Program.Main(System.String[] args)[0x003ce] in < 563ef0f89b9a4a28a403624fc051b175 >:0
+//[ERROR] FATAL UNHANDLED EXCEPTION: System.ArgumentOutOfRangeException: Token 0x0100000b is not valid in the scope of module Dummy.
+
             //    IL_000f:  ldfld class WebaoDynamic.TP3Fluent.Info WebaoDynamic.TP3Fluent.Context::info
-            il.Emit(OpCodes.Ldfld, typeof(Info));
+            il.Emit(OpCodes.Ldfld, typeof(Context).GetField("info"));
             //  IL_0014:  ldstr      "Search"
             il.Emit(OpCodes.Ldstr, metBuilder.Name);
             //  IL_0019:  callvirt instance [mscorlib] System.Delegate WebaoDynamic.TP3Fluent.Info::GetMethodDelegate(string)
-            il.EmitCall(OpCodes.Callvirt, typeof(Info).GetMethod("GetMethodDelegate", new Type[] { typeof(string) }), null);
+            il.Emit(OpCodes.Callvirt, typeof(Info).GetMethod("GetMethodDelegate", new Type[] { typeof(string) }));
             //  IL_001e:  ldc.i4.1
             il.Emit(OpCodes.Ldc_I4_1);
             //  IL_001f:  newarr[mscorlib] System.Object

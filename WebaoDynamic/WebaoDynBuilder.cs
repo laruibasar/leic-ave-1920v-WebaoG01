@@ -2,11 +2,21 @@
 using System.Reflection;
 using System.Reflection.Emit;
 using Webao;
+using WebaoDynamic.TP3Fluent;
 
 namespace WebaoDynamic
 {
     public class WebaoDynBuilder
     {
+        /* Add support to use For() as per TP3-2 API Fluent
+         * only add code for use For<T>() method 
+         * but keep regular Build()
+         */
+        public static Context For<T>(string url)
+        {
+            return new Context(typeof(T), url);
+        }
+
         public static object Build(Type type, IRequest req)
         {
             TypeInfo typeInfo = type.GetTypeInfo();

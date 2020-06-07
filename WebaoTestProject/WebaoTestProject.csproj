@@ -74,6 +74,7 @@
     <Compile Include="MockRequest.cs" />
     <Compile Include="WebaoDynamicTest2.cs" />
     <Compile Include="WebaoDynamicTest3a.cs" />
+    <Compile Include="WebaoDynamicTest3B.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Webao\Webao.csproj">

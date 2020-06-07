@@ -25,12 +25,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="IWebaoArtist3b.cs" />
-    <Compile Include="WebaoDynBuilder3b.cs" />
-    <Compile Include="WebaoDynamicTest3b.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="InfoMethod.cs" />
-    <Compile Include="WebaoEmitter3b.cs" />
+    <Compile Include="WebaoEmitter3B.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Webao\Webao.csproj">

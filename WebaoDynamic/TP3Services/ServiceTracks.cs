@@ -9,7 +9,7 @@ using WebaoDynamic;
 using WebaoTestProject;
 using WebaoTestProject.Dto;
 
-namespace WebaoDynamic.Part3
+namespace WebaoDynamic.TP3Services
 {
     public class ServiceTracks 
     {

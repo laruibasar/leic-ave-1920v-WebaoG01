@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using Webao;
-using WebaoDynamic.Part3;
+using WebaoDynamic.TP3Services;
 using WebaoTestProject.Dto;
 
 namespace WebaoTestProject

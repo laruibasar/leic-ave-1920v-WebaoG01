@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using Webao;
+using WebaoDynamic.TP3Fluent;
 using WebaoTestProject.Dto;
 
 namespace WebaoDynamic
@@ -131,7 +132,11 @@ namespace WebaoDynamic
             /* Call part to get return object to end
              * method section for return
              */
-            if (WebaoOps.GetMappingWith(typeInfo, metBuilder.Name) != null)
+            if (WebaoOps.IsContextSet())
+            {
+                MethodEmitterContextReturn(metBuilder, typeInfo, il);
+            }
+            else if (WebaoOps.GetMappingWith(typeInfo, metBuilder.Name) != null)
             {
                 MethodEmitterReturnWith(metBuilder, typeInfo, il);
             }
@@ -141,6 +146,51 @@ namespace WebaoDynamic
             }
 
             il.Emit(OpCodes.Ret);
+        }
+
+        private static void MethodEmitterContextReturn(
+            MethodBuilder metBuilder,
+            TypeInfo typeInfo,
+            ILGenerator il)
+        {
+            /* We need to load context from the method in execution
+             * and them access the right delegate to do the Invoke
+             * 
+             * The C# code we want to emit is:
+             * (List<Artist>)ContextCache.Get(typeof(WebaoArtist))
+             *  .info
+             *  .GetMethodDelegate("Search")
+             *  .DynamicInvoke(results); 
+             */
+
+            /* USE THIS FROM TEST: TestLoadAndUseContext */
+            //    IL_0000:  ldtoken WebaoTestProject.WebaoArtist
+            il.Emit(OpCodes.Ldtoken, typeInfo);
+            //    IL_0005:  call[mscorlib] System.Type[mscorlib] System.Type::GetTypeFromHandle([mscorlib] System.RuntimeTypeHandle)
+            il.EmitCall(OpCodes.Call,
+                typeof(Type).GetMethod("GetTypeFromHandle", new Type[] { typeof(RuntimeTypeHandle) }),
+                null);
+            //    IL_000a:  call class WebaoDynamic.TP3Fluent.Context WebaoDynamic.TP3Fluent.ContextCache::Get([mscorlib] System.Type)
+            il.EmitCall(OpCodes.Call, typeof(ContextCache).GetMethod("Get", new Type[] { typeof(Type) }), null);
+            //    IL_000f:  ldfld class WebaoDynamic.TP3Fluent.Info WebaoDynamic.TP3Fluent.Context::info
+            il.Emit(OpCodes.Ldfld, typeof(Info));
+            //  IL_0014:  ldstr      "Search"
+            il.Emit(OpCodes.Ldstr, metBuilder.Name);
+            //  IL_0019:  callvirt instance [mscorlib] System.Delegate WebaoDynamic.TP3Fluent.Info::GetMethodDelegate(string)
+            il.EmitCall(OpCodes.Callvirt, typeof(Info).GetMethod("GetMethodDelegate", new Type[] { typeof(string) }), null);
+            //  IL_001e:  ldc.i4.1
+            il.Emit(OpCodes.Ldc_I4_1);
+            //  IL_001f:  newarr[mscorlib] System.Object
+            il.Emit(OpCodes.Newarr, typeof(Object));
+            //  IL_0024:  dup
+            //  IL_0025:  ldc.i4.0
+            il.Emit(OpCodes.Ldc_I4_0);
+            //  IL_0026:  ldsfld     class WebaoTestProject.Dto.DtoSearch WebaoTestProject.WebaoDynamicTest3B::results
+            il.Emit(OpCodes.Ldsfld, WebaoOps.GetMappingType(typeInfo, metBuilder.Name));
+            //  IL_002b:  stelem.ref
+            il.Emit(OpCodes.Stelem_Ref);
+            //  IL_002c:  callvirt instance object[mscorlib] System.Delegate::DynamicInvoke(object[])
+            il.Emit(OpCodes.Callvirt, typeof(Delegate).GetMethod("DynamicInvoke"));
         }
 
         private static void MethodEmitterReturnWith(

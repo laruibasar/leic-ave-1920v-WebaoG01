@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Webao;
-using WebaoTestProject;
 
 namespace WebaoDynamic.TP3Fluent
 {
@@ -72,6 +71,10 @@ namespace WebaoDynamic.TP3Fluent
                     currentInfoMethod = new InfoMethod(method);
                 }
             }
+            else
+            {
+                throw new Exception();
+            }
 
             return this;
         }
@@ -84,6 +87,10 @@ namespace WebaoDynamic.TP3Fluent
                 {
                     currentInfoMethod.query = query;
                 }
+            }
+            else
+            {
+                throw new Exception();
             }
 
             return this;
@@ -101,15 +108,24 @@ namespace WebaoDynamic.TP3Fluent
                     this.info.list.Add(currentInfoMethod);
                 }
             }
+            else
+            {
+                throw new Exception();
+            }
 
             return this;
         }
 
-        public object Build3b(IRequest req)
+        public object Build(IRequest req)
         {
+            // Add context to cache for availability through execution
             ContextCache.Add(this);
 
-            return new WebaoArtist(req);
+            // Add current context to build information on normal Build()
+            WebaoOps.SetContext(this);
+
+            // Use normal Builder for code reuse
+            return WebaoDynBuilder.Build(this.info.returnType, req);
         }
     }
 }

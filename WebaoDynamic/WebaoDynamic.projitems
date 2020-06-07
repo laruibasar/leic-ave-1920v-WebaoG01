@@ -25,7 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)TP3Services\ServiceCharacters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TP3Services\ServiceCountries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IWebaoCharacter3A.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TP3Fluent\IWebaoArtist3B.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TP3Fluent\WebaoDynArtist.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TP3Fluent\Context.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TP3Fluent\Info.cs" />
   </ItemGroup>

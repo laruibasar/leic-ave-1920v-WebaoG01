@@ -14,6 +14,12 @@ namespace WebaoDynamic.TP3Fluent
         {
             this.returnType = type;
         }
+
+        public Delegate GetMethodDelegate(string name)
+        {
+            InfoMethod method = list.Find(search => search.name.Equals(name));
+            return method.Del;
+        }
     }
 
     public class InfoMethod

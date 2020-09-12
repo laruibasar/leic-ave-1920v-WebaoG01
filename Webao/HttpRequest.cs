@@ -42,7 +42,7 @@ namespace Webao
             }
             return url;
         }
-        public object Get(string path, Type targetType)
+        public virtual object Get(string path, Type targetType)
         {
             path = path.Replace(",", ".");
             /*

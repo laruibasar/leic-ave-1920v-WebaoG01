@@ -30,6 +30,7 @@ namespace WebaoDynamic.TP3Services
             {
                 yield return item;
             }
+            yield break;
         }
     }
 }

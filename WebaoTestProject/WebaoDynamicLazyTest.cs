@@ -23,12 +23,13 @@ namespace WebaoTestProject
             foreach (Track track in tracks)
             {
                 count++;
-                if (count == 50)
+                if (count == 20)
                 {
-                    Assert.AreEqual(50, count);
-                    break;
+                    Assert.AreEqual(20, count);
+                    return;
                 }
             }
+            Assert.AreEqual(100, count);
         }
 
         [Test]

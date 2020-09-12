@@ -74,6 +74,7 @@ namespace WebaoDynamic
              */
             LocalBuilder lbPath = il.DeclareLocal(typeof(string));
             lbPath.SetLocalSymInfo("path");
+            LocalBuilder varReturn = il.DeclareLocal(typeof(object));
 
             if (metBuilder.Name.Equals("GeoGetTopTracks"))
             {
@@ -128,6 +129,7 @@ namespace WebaoDynamic
             il.Emit(OpCodes.Ldtoken, WebaoOps.GetMappingType(typeInfo, metBuilder.Name));
             il.EmitCall(OpCodes.Call, callTypeOf, null);
             il.EmitCall(OpCodes.Call, baseGetRequest, null);
+            il.Emit(OpCodes.Stloc_1);
 
             /* Call part to get return object to end
              * method section for return
@@ -138,10 +140,12 @@ namespace WebaoDynamic
             }
             else if (WebaoOps.GetMappingWith(typeInfo, metBuilder.Name) != null)
             {
+                il.Emit(OpCodes.Ldloc_1);
                 MethodEmitterReturnWith(metBuilder, typeInfo, il);
             }
             else
             {
+                il.Emit(OpCodes.Ldloc_1);
                 MethodEmitterReturn(metBuilder, typeInfo, il);
             }
 
@@ -162,48 +166,42 @@ namespace WebaoDynamic
              *  .GetMethodDelegate("Search")
              *  .DynamicInvoke(results); 
              */
+            MethodInfo callTypeOf = typeof(Type).GetMethod(
+                "GetTypeFromHandle",
+                new Type[] { typeof(RuntimeTypeHandle) });
 
             /* USE THIS FROM TEST: TestLoadAndUseContext */
             //    IL_0000:  ldtoken WebaoTestProject.WebaoArtist
             il.Emit(OpCodes.Ldtoken, typeInfo);
             //    IL_0005:  call[mscorlib] System.Type[mscorlib] System.Type::GetTypeFromHandle([mscorlib] System.RuntimeTypeHandle)
-            il.Emit(OpCodes.Call,
-                typeof(Type).GetMethod("GetTypeFromHandle", new Type[] { typeof(RuntimeTypeHandle) }));
+            il.Emit(OpCodes.Call, callTypeOf);
             //    IL_000a:  call class WebaoDynamic.TP3Fluent.Context WebaoDynamic.TP3Fluent.ContextCache::Get([mscorlib] System.Type)
-            il.Emit(OpCodes.Call, typeof(ContextCache).GetMethod("Get", new Type[] { typeof(Type) }));
-            // Failed generated from here:
-//Unhandled Exception:
-//System.ArgumentOutOfRangeException: Token 0x0100000b is not valid in the scope of module Dummy.
-//Parameter name: metadataToken
-//  at IKVM.Reflection.Reader.ModuleReader.ResolveField(System.Int32 metadataToken, IKVM.Reflection.Type[] genericTypeArguments, IKVM.Reflection.Type[] genericMethodArguments)[0x0008c] in < 563ef0f89b9a4a28a403624fc051b175 >:0
-//  at Ildasm.Disassembler.ResolveField(System.Int32 token, IKVM.Reflection.Type[] genericTypeArguments, IKVM.Reflection.Type[] genericMethodArguments)[0x00000] in < 563ef0f89b9a4a28a403624fc051b175 >:0
-//  at Ildasm.Disassembler.WriteIL(Ildasm.LineWriter lw, IKVM.Reflection.MethodBase mb, IKVM.Reflection.MethodBody body, IKVM.Reflection.Type[] genericTypeArguments, IKVM.Reflection.Type[] genericMethodArguments)[0x005be] in < 563ef0f89b9a4a28a403624fc051b175 >:0
-//  at Ildasm.Disassembler.WriteMethod(Ildasm.LineWriter lw, IKVM.Reflection.MethodBase method)[0x007bb] in < 563ef0f89b9a4a28a403624fc051b175 >:0
-//  at Ildasm.Disassembler.WriteType(Ildasm.LineWriter lw, IKVM.Reflection.Type type)[0x004a8] in < 563ef0f89b9a4a28a403624fc051b175 >:0
-//  at Ildasm.Disassembler.WriteTypes(Ildasm.LineWriter lw)[0x00039] in < 563ef0f89b9a4a28a403624fc051b175 >:0
-//  at Ildasm.Disassembler.Save(System.IO.TextWriter writer)[0x00082] in < 563ef0f89b9a4a28a403624fc051b175 >:0
-//  at Ildasm.Program.Main(System.String[] args)[0x003ce] in < 563ef0f89b9a4a28a403624fc051b175 >:0
-//[ERROR] FATAL UNHANDLED EXCEPTION: System.ArgumentOutOfRangeException: Token 0x0100000b is not valid in the scope of module Dummy.
-
+            MethodInfo callGet = typeof(ContextCache).GetMethod("Get", new Type[] { typeof(Type) });
+            il.Emit(OpCodes.Call, callGet);
             //    IL_000f:  ldfld class WebaoDynamic.TP3Fluent.Info WebaoDynamic.TP3Fluent.Context::info
-            il.Emit(OpCodes.Ldfld, typeof(Context).GetField("info"));
+            FieldInfo fieldInfo = typeof(Context).GetField("info");
+            il.Emit(OpCodes.Ldfld, fieldInfo);
             //  IL_0014:  ldstr      "Search"
             il.Emit(OpCodes.Ldstr, metBuilder.Name);
             //  IL_0019:  callvirt instance [mscorlib] System.Delegate WebaoDynamic.TP3Fluent.Info::GetMethodDelegate(string)
-            il.Emit(OpCodes.Callvirt, typeof(Info).GetMethod("GetMethodDelegate", new Type[] { typeof(string) }));
+            MethodInfo callDelegate = typeof(Info).GetMethod("GetMethodDelegate", new Type[] { typeof(string) });
+            il.Emit(OpCodes.Callvirt, callDelegate);
             //  IL_001e:  ldc.i4.1
             il.Emit(OpCodes.Ldc_I4_1);
             //  IL_001f:  newarr[mscorlib] System.Object
             il.Emit(OpCodes.Newarr, typeof(Object));
             //  IL_0024:  dup
+            il.Emit(OpCodes.Dup);
             //  IL_0025:  ldc.i4.0
             il.Emit(OpCodes.Ldc_I4_0);
+            il.Emit(OpCodes.Ldloc_1);
             //  IL_0026:  ldsfld     class WebaoTestProject.Dto.DtoSearch WebaoTestProject.WebaoDynamicTest3B::results
-            il.Emit(OpCodes.Ldsfld, WebaoOps.GetMappingType(typeInfo, metBuilder.Name));
+            //il.Emit(OpCodes.Ldsfld, WebaoOps.GetMappingType(typeInfo, metBuilder.Name));
             //  IL_002b:  stelem.ref
             il.Emit(OpCodes.Stelem_Ref);
             //  IL_002c:  callvirt instance object[mscorlib] System.Delegate::DynamicInvoke(object[])
-            il.Emit(OpCodes.Callvirt, typeof(Delegate).GetMethod("DynamicInvoke"));
+           
+            il.Emit(OpCodes.Callvirt, typeof(Delegate).GetMethod("DynamicInvoke", new Type[] { typeof(object[]) }));
         }
 
         private static void MethodEmitterReturnWith(

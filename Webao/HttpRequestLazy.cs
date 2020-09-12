@@ -30,7 +30,7 @@ namespace Webao
             return url + "&limit=" + Limit.ToString() + "&page=" + Page.ToString();
         }
 
-        public new object Get(string path, Type targetType)
+        public override object Get(string path, Type targetType)
         {
             Page++;
 
